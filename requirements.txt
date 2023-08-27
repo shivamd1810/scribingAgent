@@ -1,0 +1,8 @@
+streamlit
+openai
+langchain==0.0.272
+pandas
+pydantic
+azure-search-documents==11.4.0b8
+python-dotenv
+firebase-admin
