@@ -92,7 +92,7 @@ def authenticate():
 
     # Only show email and code input fields if the user is not authenticated
     if not st.session_state.authenticated:
-        st.title("Welcome to Medscribe AI : Authenticate with Dermatology AI")
+        st.title("No Pajamas movement")
         email = st.text_input("Enter Email:")
         code = st.text_input("Enter Code:", type="password")
 
