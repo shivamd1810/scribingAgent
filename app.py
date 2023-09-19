@@ -11,7 +11,7 @@ from langchain.chains.openai_functions import (
     create_structured_output_chain
 )
 import streamlit as st
-from firebaseFunctions import checkAuthentication, GetListOfTranscription, GetDetailsById
+from firebaseFunctions import checkAuthentication, GetListOfTranscription, GetDetailsById, get_feedback, update_feedback
 from tools import CPTCodeTool, ICD10CodeTool
 
 
@@ -34,6 +34,22 @@ from prompt import notes_instruction, code_json_schema, code_instruction
 
 prompt = PromptTemplate(input_variables=["transcription"], template= notes_instruction)
 code_prompt = PromptTemplate(input_variables=["transcription"], template= code_instruction)
+
+def display_feedback(patient_id, feedback_type):
+
+    # Get existing feedback
+    existing_feedback = get_feedback(patient_id, feedback_type)
+
+    # Create text input field for feedback
+    new_feedback = st.text_area(f"{feedback_type} Feedback", existing_feedback)
+
+    # Create a button to update feedback
+    if st.button(f"Submit Feedback"):
+        if update_feedback(patient_id, new_feedback, feedback_type):
+            st.success(f"{feedback_type} feedback updated successfully.")
+        else:
+            st.error(f"Failed to update {feedback_type} feedback.")
+
 
 
 
@@ -166,7 +182,7 @@ def display_transcription(details):
     st.write(details['transcription'])
     
 
-def display_patient_note(details):
+def display_patient_note(details, patient_id):
     st.title('Patient Note')
     col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
@@ -178,9 +194,10 @@ def display_patient_note(details):
             st.session_state.progress = 2
             st.experimental_rerun() 
     st.write(details['patientNote'])
+    display_feedback(patient_id, "PatientNotes")
     
 
-def display_medical_codes(details):
+def display_medical_codes(details, patient_id):
     st.title('Medical Codes')
     col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
@@ -192,9 +209,10 @@ def display_medical_codes(details):
             st.session_state.progress = 3
             st.experimental_rerun() 
     display_medical_details(details['emcode'], details['patientMedicalCodes'])
+    display_feedback(patient_id, "MedicalCodes")
 
 
-def display_patient_instructions(details):
+def display_patient_instructions(details, patient_id):
     st.title('Patient Instructions')
     col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
@@ -205,16 +223,17 @@ def display_patient_instructions(details):
         if st.button('Submit to EHR'):
             st.success('Error: EHR not connected')
     st.write(details['patientInstructions'])
+    display_feedback(patient_id, "PatientInstructions")
 
-def display_details(details):
+def display_details(details, patient_id):
     if st.session_state.progress == 0:
         display_transcription(details)
     elif st.session_state.progress == 1:
-        display_patient_note(details)
+        display_patient_note(details, patient_id)
     elif st.session_state.progress == 2:
-        display_medical_codes(details)
+        display_medical_codes(details, patient_id)
     elif st.session_state.progress == 3:
-        display_patient_instructions(details)
+        display_patient_instructions(details, patient_id)
 
 def transcription_page():
     if 'authenticated' not in st.session_state:
@@ -228,7 +247,7 @@ def transcription_page():
 
     if selected_patient_id:
         details = GetDetailsById(selected_patient_id)
-        display_details(details)
+        display_details(details, selected_patient_id)
 
 # Initialize session state
 if 'progress' not in st.session_state:

@@ -106,3 +106,31 @@ def GetDetailsById(patient_id):
 
     return result
 
+def get_feedback(patient_id, feedback_type):
+    # Document reference for the specific patient visit
+    patient_visit_ref = db.collection('patientVisits').document(patient_id)
+
+    # Fetch the existing document
+    patient_visit_doc = patient_visit_ref.get()
+
+    if patient_visit_doc.exists:
+        patient_data = patient_visit_doc.to_dict()
+        key = f"{feedback_type}Feedback"  # E.g., 'MedicalCodesFeedback'
+        return patient_data.get(key, '')
+    else:
+        return ''
+
+def update_feedback(patient_id, new_feedback, feedback_type):
+    # Document reference for the specific patient visit
+    patient_visit_ref = db.collection('patientVisits').document(patient_id)
+
+    try:
+        key = f"{feedback_type}Feedback"  # E.g., 'MedicalCodesFeedback'
+        # Update the document with new feedback
+        patient_visit_ref.update({
+            key: new_feedback
+        })
+        return True
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False
