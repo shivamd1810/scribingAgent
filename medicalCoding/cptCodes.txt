@@ -1,0 +1,107 @@
+CPT/Product	DisplayName
+11102	Tangntl Bx Skin Single Les
+17000	Destruct Premalg Lesion
+17003	Destruct Premalg Les 2-14
+88305	Level Iv Surg Pathology Gross&Microscopic Exam
+11104	Punch Bx Skin Single Lesion
+11105	Punch Bx Skin Ea Sep/Addl
+17110	Destruct B9 Lesion 1-14
+88305	Tissue Exam By Pathologist
+88312	Special Stains Group 1
+11440	Exc Face-Mm B9+Marg 0.5 Cm/<
+12051	Intmd Rpr Face/Mm 2.5 Cm/<
+J3301	Triamcinolone Acet Inj Nos
+11900	Inject Skin Lesions </W 7
+11421	Exc H-F-Nk-Sp B9+Marg 0.6-1
+11603	Exc Tr-Ext Mal+Marg 2.1-3 Cm
+12032	Intmd Rpr S/A/T/Ext 2.6-7.5
+88342	Immunohisto Antb 1st Stain
+17261	Destruction Of Skin Lesions
+11103	Tangntl Bx Skin Ea Sep/Addl
+17282	Destruction Of Skin Lesions
+54060	Excision Of Penis Lesion(S)
+11200	Removal Of Skin Tags <W/15
+11201	Remove Skin Tags Add-On
+69100	Biopsy Of External Ear
+Q0112	Potassium Hydroxide Preps
+88305	Pc Tissue Exam By Pathologist
+11624	Exc S/N/H/F/G Mal+Mrg 3.1-4
+12042	Intmd Rpr N-Hf/Genit2.6-7.5
+56605	Biopsy Of Vulva/Perineum
+87220	Tissue Exam For Fungi
+17260	Destruction Of Skin Lesions
+11602	Exc Tr-Ext Mal+Marg 1.1-2 Cm
+88304	Pc Tissue Exam By Pathologist
+17272	Destruction Of Skin Lesions
+11642	Exc F/E/E/N/L Mal+Mrg 1.1-2
+12052	Intmd Rpr Face/Mm 2.6-5.0 Cm
+11423	Exc H-F-Nk-Sp B9+Marg 2.1-3
+11442	Exc Face-Mm B9+Marg 1.1-2 Cm
+12031	Intmd Rpr S/A/T/Ext 2.5 Cm/<
+13132	Cmplx Rpr F/C/C/M/N/Ax/G/H/F
+11401	Exc Tr-Ext B9+Marg 0.6-1 Cm
+17280	Destruction Of Skin Lesions
+11441	Exc Face-Mm B9+Marg 0.6-1 Cm
+36415	Routine Venipuncture
+17262	Destruction Of Skin Lesions
+17271	Destruction Of Skin Lesions
+11403	Exc Tr-Ext B9+Marg 2.1-3cm
+11404	Exc Tr-Ext B9+Marg 3.1-4 Cm
+11622	Exc S/N/H/F/G Mal+Mrg 1.1-2
+11623	Exc S/N/H/F/G Mal+Mrg 2.1-3
+17004	Destroy Premal Lesions 15/>
+12041	Intmd Rpr N-Hf/Genit 2.5cm/<
+11422	Exc H-F-Nk-Sp B9+Marg 1.1-2
+11402	Exc Tr-Ext B9+Marg 1.1-2 Cm
+64650	Chemodenerv Eccrine Glands
+54056	Cryosurgery Penis Lesion(S)
+10060	Drainage Of Skin Abscess
+95044	Allergy Patch Tests
+17281	Destruction Of Skin Lesions
+11604	Exc Tr-Ext Mal+Marg 3.1-4 Cm
+11310	Shave Skin Lesion 0.5 Cm/<
+11420	Exc H-F-Nk-Sp B9+Marg 0.5/<
+11312	Shave Skin Lesion 1.1-2.0 Cm
+11901	Inject Skin Lesions >7
+11406	Exc Tr-Ext B9+Marg >4.0 Cm
+13101	Cmplx Rpr Trunk 2.6-7.5 Cm
+11400	Exc Tr-Ext B9+Marg 0.5 Cm<
+40490	Biopsy Of Lip
+88341	Immunohisto Antb Addl Slide
+11300	Shave Skin Lesion 0.5 Cm/<
+11308	Shave Skin Lesion >2.0 Cm
+11443	Exc Face-Mm B9+Marg 2.1-3 Cm
+13100	Cmplx Rpr Trunk 1.1-2.5 Cm
+11301	Shave Skin Lesion 0.6-1.0 Cm
+96372	Ther/Proph/Diag Inj Sc/Im
+12034	Intmd Rpr S/Tr/Ext 7.6-12.5
+13121	Cmplx Rpr S/A/L 2.6-7.5 Cm
+13122	Cmplx Rpr S/A/L Addl 5 Cm/>
+10120	Remove Foreign Body
+17111	Destruct Lesion 15 Or More
+11424	Exc H-F-Nk-Sp B9+Marg 3.1-4
+17270	Destruction Of Skin Lesions
+10140	Drainage Of Hematoma/Fluid
+11755	Biopsy Nail Unit
+11057	Trim Skin Lesions Over 4
+67810	Biopsy Eyelid & Lid Margin
+10061	Drainage Of Skin Abscess
+11600	Exc Tr-Ext Mal+Marg 0.5 Cm/<
+17264	Destruction Of Skin Lesions
+11056	Trim Skin Lesions 2 To 4
+57100	Biopsy Of Vagina
+17273	Destruction Of Skin Lesions
+11426	Exc H-F-Nk-Sp B9+Marg >4 Cm
+56501	Destroy Vulva Lesions Sim
+54100	Biopsy Of Penis
+11311	Shave Skin Lesion 0.6-1.0 Cm
+17999	Skin Tissue Procedure
+11446	Exc Face-Mm B9+Marg >4 Cm
+88304	Level Iii Surg Pathology Gross&Microscopic Exam
+11771	Excision Pilonidal Cyst/Sinus Extensive
+13100	Repair Complex Trunk 1.1-2.5 Cm
+11306	Shave Skin Lesion 0.6-1.0 Cm
+88313	Special Stains Group 2
+11307	Shave Skin Lesion 1.1-2.0 Cm
+17250	Chem Caut Of Granltj Tissue
+11305	Shave Skin Lesion 0.5 Cm/<

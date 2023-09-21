@@ -12,6 +12,7 @@ from langchain.chains.openai_functions import (
 )
 import streamlit as st
 from firebaseFunctions import checkAuthentication, GetListOfTranscription, GetDetailsById, get_feedback, update_feedback
+from medicalCoding.medicalCoding import generate_notes, display_info
 from tools import CPTCodeTool, ICD10CodeTool
 
 
@@ -23,8 +24,8 @@ tools = [
 llm = ChatOpenAI(temperature=0, engine="GPT4", openai_api_key=st.secrets["AZURE_OPENAI_API_KEY"])
 
 
-transcription='''Hello there Sir. How are you? Good. How are you? Good. There's not very much there as far as skills, but I can see a little bit of a rim to it, so I'm trying to get the little bit here. OK. And I feel this great feeling, but not painful. Yeah. How long has the spot been there? It started about two weeks. OK. He was travelling. [US_STATE] and then it's cleared up a lot in [US_STATE]. You wear this kind of athletic clothing most of the time. OK, alright, sure. Yeah, I don't think there's enough scale there too, so I don't, I don't think it's a fungal thing. And it just showed up out of nowhere. Yeah, nowhere, which is really freaked out, he said. It was a little bit more red, yeah, initially. And then with more scaly before. At this point it could be a little too. I didn't see like, so I was kind of looking. And were you wearing something like this in [US_STATE]? Ohh, yeah. It was really light, like a tank tops though. Yeah. Were you dealing with any foods like lime or lemon, celery or anything like that? Outside of what I ordered in room service, I got it pretty mellow. You got you weren't on someone's boat making. No, no, no, no. The pinnacle outline. Margaritas. OK, got it. And right now you said it's not symptomatic, it's not itchy for you at this point, not burning, not painful. It first started on my fingers, it work got super scaling dry and then when I noticed that I started examining my body and that's my countless probably just a little bit of post inflammatory hyperpigmentation and she said. Need to just use moisturizer. The one that they recommend for right now is called Seravee. Once you know that there's no irritation or itching at all, you could switch to something called amlactin. Amlactin is least expensive at Costco, as is the survey, and the amlactin will help to gently exfoliate. Don't get rid of the brown area, it doesn't look like there's anything remaining. May have had a rash that's gone and just left a little bit of brown. What happens is when we have a little bit of color in our skin, it's like the frosting. There are a cake has the color in it and it's vanilla cake underneath. If you put a birthday candle into the cake, you get pink frosting in the wrong area, right? And that's why it's a brown spot. So it's. Don't worry about it does not look like a cancer, like a bacterial viral fungal infection. Does not look like it's something seriously wrong inside of your body. OK, very much. See you back if you need us. Absolutely. Thank you.    
-'''
+# transcription='''Hello there Sir. How are you? Good. How are you? Good. There's not very much there as far as skills, but I can see a little bit of a rim to it, so I'm trying to get the little bit here. OK. And I feel this great feeling, but not painful. Yeah. How long has the spot been there? It started about two weeks. OK. He was travelling. [US_STATE] and then it's cleared up a lot in [US_STATE]. You wear this kind of athletic clothing most of the time. OK, alright, sure. Yeah, I don't think there's enough scale there too, so I don't, I don't think it's a fungal thing. And it just showed up out of nowhere. Yeah, nowhere, which is really freaked out, he said. It was a little bit more red, yeah, initially. And then with more scaly before. At this point it could be a little too. I didn't see like, so I was kind of looking. And were you wearing something like this in [US_STATE]? Ohh, yeah. It was really light, like a tank tops though. Yeah. Were you dealing with any foods like lime or lemon, celery or anything like that? Outside of what I ordered in room service, I got it pretty mellow. You got you weren't on someone's boat making. No, no, no, no. The pinnacle outline. Margaritas. OK, got it. And right now you said it's not symptomatic, it's not itchy for you at this point, not burning, not painful. It first started on my fingers, it work got super scaling dry and then when I noticed that I started examining my body and that's my countless probably just a little bit of post inflammatory hyperpigmentation and she said. Need to just use moisturizer. The one that they recommend for right now is called Seravee. Once you know that there's no irritation or itching at all, you could switch to something called amlactin. Amlactin is least expensive at Costco, as is the survey, and the amlactin will help to gently exfoliate. Don't get rid of the brown area, it doesn't look like there's anything remaining. May have had a rash that's gone and just left a little bit of brown. What happens is when we have a little bit of color in our skin, it's like the frosting. There are a cake has the color in it and it's vanilla cake underneath. If you put a birthday candle into the cake, you get pink frosting in the wrong area, right? And that's why it's a brown spot. So it's. Don't worry about it does not look like a cancer, like a bacterial viral fungal infection. Does not look like it's something seriously wrong inside of your body. OK, very much. See you back if you need us. Absolutely. Thank you.    
+# '''
 
 
 from langchain.chains import LLMChain
@@ -204,12 +205,19 @@ def display_medical_codes(details, patient_id):
         if st.button('Back to Patient Note'):
             st.session_state.progress = 1
             st.experimental_rerun() 
+        
     with col3:
         if st.button('Next to Patient Instructions'):
             st.session_state.progress = 3
             st.experimental_rerun() 
-    display_medical_details(details['emcode'], details['patientMedicalCodes'])
-    display_feedback(patient_id, "MedicalCodes")
+    
+    patientType = st.radio("Select Patient Type:", ["First Visit", "Established Patient"])
+
+    if st.button('Generate Notes'):
+            # Assuming `transcription` is available or passed as an argument
+            st.info("It takes around 90 seconds to generate billing codes.")
+            display_info(details["transcription"], patientType)
+            # st.write("Generated notes:", new_patientMedicalCodes)  # Display the output
 
 
 def display_patient_instructions(details, patient_id):

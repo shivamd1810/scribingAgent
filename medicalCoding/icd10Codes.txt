@@ -1,0 +1,643 @@
+ICD_Code	DisplayName
+A49.02	Methicillin resistant Staphylococcus aureus infection, unspecified site
+A63.0	Anogenital (venereal) warts
+B00.0	Eczema herpeticum
+B00.1	Herpesviral vesicular dermatitis
+B00.50	Herpesviral ocular disease, unspecified
+B00.89	Other herpesviral infection
+B02.29	Other postherpetic nervous system involvement
+B02.9	Zoster without complications
+B07.0	Plantar wart
+B07.8	Other viral warts
+B08.1	Molluscum contagiosum
+B09	Unspecified viral infection characterized by skin and mucous membrane lesions
+B35.1	Tinea unguium
+B35.2	Tinea manuum
+B35.3	Tinea pedis
+B35.4	Tinea corporis
+B35.6	Tinea cruris
+B35.8	Other dermatophytoses
+B36.0	Pityriasis versicolor
+B36.8	Other specified superficial mycoses
+B37.2	Candidiasis of skin and nail
+B78.0	Intestinal strongyloidiasis
+B85.0	Pediculosis due to Pediculus humanus capitis
+B95.61	Methicillin susceptible Staphylococcus aureus infection as the cause of diseases classified elsewhere
+C00.0	Malignant neoplasm of external upper lip
+C00.1	Malignant neoplasm of external lower lip
+C00.6	Malignant neoplasm of commissure of lip, unspecified
+C43.39	Malignant melanoma of other parts of face
+C43.4	Malignant melanoma of scalp and neck
+C43.59	Malignant melanoma of other part of trunk
+C43.61	Malignant melanoma of right upper limb, including shoulder
+C43.62	Malignant melanoma of left upper limb, including shoulder
+C43.9	Malignant melanoma of skin, unspecified
+C44.01	Basal cell carcinoma of skin of lip
+C44.1122	Basal cell carcinoma of skin of right lower eyelid, including canthus
+C44.1191	Basal cell carcinoma of skin of left upper eyelid, including canthus
+C44.1192	Basal cell carcinoma of skin of left lower eyelid, including canthus
+C44.212	Basal cell carcinoma of skin of right ear and external auricular canal
+C44.219	Basal cell carcinoma of skin of left ear and external auricular canal
+C44.229	Squamous cell carcinoma of skin of left ear and external auricular canal
+C44.311	Basal cell carcinoma of skin of nose
+C44.319	Basal cell carcinoma of skin of other parts of face
+C44.321	Squamous cell carcinoma of skin of nose
+C44.329	Squamous cell carcinoma of skin of other parts of face
+C44.41	Basal cell carcinoma of skin of scalp and neck
+C44.42	Squamous cell carcinoma of skin of scalp and neck
+C44.49	Other specified malignant neoplasm of skin of scalp and neck
+C44.511	Basal cell carcinoma of skin of breast
+C44.519	Basal cell carcinoma of skin of other part of trunk
+C44.529	Squamous cell carcinoma of skin of other part of trunk
+C44.599	Other specified malignant neoplasm of skin of other part of trunk
+C44.612	Basal cell carcinoma of skin of right upper limb, including shoulder
+C44.619	Basal cell carcinoma of skin of left upper limb, including shoulder
+C44.622	Squamous cell carcinoma of skin of right upper limb, including shoulder
+C44.629	Squamous cell carcinoma of skin of left upper limb, including shoulder
+C44.712	Basal cell carcinoma of skin of right lower limb, including hip
+C44.719	Basal cell carcinoma of skin of left lower limb, including hip
+C44.722	Squamous cell carcinoma of skin of right lower limb, including hip
+C44.729	Squamous cell carcinoma of skin of left lower limb, including hip
+C44.799	Other specified malignant neoplasm of skin of left lower limb, including hip
+C44.91	Basal cell carcinoma of skin, unspecified
+C44.92	Squamous cell carcinoma of skin, unspecified
+C44.99	Other specified malignant neoplasm of skin, unspecified
+C50.011	Malignant neoplasm of nipple and areola, right female breast
+C50.112	Malignant neoplasm of central portion of left female breast
+C79.2	Secondary malignant neoplasm of skin
+C79.89	Secondary malignant neoplasm of other specified sites
+C84.00	Mycosis fungoides, unspecified site
+C84.A0	Cutaneous T-cell lymphoma, unspecified, unspecified site
+D00.01	Carcinoma in situ of labial mucosa and vermilion border
+D03.39	Melanoma in situ of other parts of face
+D03.4	Melanoma in situ of scalp and neck
+D03.59	Melanoma in situ of other part of trunk
+D03.61	Melanoma in situ of right upper limb, including shoulder
+D03.62	Melanoma in situ of left upper limb, including shoulder
+D04.122	Carcinoma in situ of skin of left lower eyelid, including canthus
+D04.39	Carcinoma in situ of skin of other parts of face
+D04.4	Carcinoma in situ of skin of scalp and neck
+D04.5	Carcinoma in situ of skin of trunk
+D04.61	Carcinoma in situ of skin of right upper limb, including shoulder
+D04.62	Carcinoma in situ of skin of left upper limb, including shoulder
+D04.71	Carcinoma in situ of skin of right lower limb, including hip
+D04.72	Carcinoma in situ of skin of left lower limb, including hip
+D04.9	Carcinoma in situ of skin, unspecified
+D10.0	Benign neoplasm of lip
+D16.4	Benign neoplasm of bones of skull and face
+D16.9	Benign neoplasm of bone and articular cartilage, unspecified
+D17.0	Benign lipomatous neoplasm of skin and subcutaneous tissue of head, face and neck
+D17.1	Benign lipomatous neoplasm of skin and subcutaneous tissue of trunk
+D17.20	Benign lipomatous neoplasm of skin and subcutaneous tissue of unspecified limb
+D17.21	Benign lipomatous neoplasm of skin and subcutaneous tissue of right arm
+D17.22	Benign lipomatous neoplasm of skin and subcutaneous tissue of left arm
+D17.23	Benign lipomatous neoplasm of skin and subcutaneous tissue of right leg
+D17.24	Benign lipomatous neoplasm of skin and subcutaneous tissue of left leg
+D17.30	Benign lipomatous neoplasm of skin and subcutaneous tissue of unspecified sites
+D18.01	Hemangioma of skin and subcutaneous tissue
+D18.1	Lymphangioma, any site
+D22.0	Melanocytic nevi of lip
+D22.111	Melanocytic nevi of right upper eyelid, including canthus
+D22.121	Melanocytic nevi of left upper eyelid, including canthus
+D22.122	Melanocytic nevi of left lower eyelid, including canthus
+D22.21	Melanocytic nevi of right ear and external auricular canal
+D22.22	Melanocytic nevi of left ear and external auricular canal
+D22.39	Melanocytic nevi of other parts of face
+D22.4	Melanocytic nevi of scalp and neck
+D22.5	Melanocytic nevi of trunk
+D22.61	Melanocytic nevi of right upper limb, including shoulder
+D22.62	Melanocytic nevi of left upper limb, including shoulder
+D22.71	Melanocytic nevi of right lower limb, including hip
+D22.72	Melanocytic nevi of left lower limb, including hip
+D22.9	Melanocytic nevi, unspecified
+D23.0	Other benign neoplasm of skin of lip
+D23.111	Other benign neoplasm of skin of right upper eyelid, including canthus
+D23.112	Other benign neoplasm of skin of right lower eyelid, including canthus
+D23.122	Other benign neoplasm of skin of left lower eyelid, including canthus
+D23.21	Other benign neoplasm of skin of right ear and external auricular canal
+D23.39	Other benign neoplasm of skin of other parts of face
+D23.4	Other benign neoplasm of skin of scalp and neck
+D23.5	Other benign neoplasm of skin of trunk
+D23.61	Other benign neoplasm of skin of right upper limb, including shoulder
+D23.62	Other benign neoplasm of skin of left upper limb, including shoulder
+D23.71	Other benign neoplasm of skin of right lower limb, including hip
+D23.72	Other benign neoplasm of skin of left lower limb, including hip
+D23.9	Other benign neoplasm of skin, unspecified
+D29.0	Benign neoplasm of penis
+D29.4	Benign neoplasm of scrotum
+D36.0	Benign neoplasm of lymph nodes
+D36.11	Benign neoplasm of peripheral nerves and autonomic nervous system of face, head, and neck
+D36.13	Benign neoplasm of peripheral nerves and autonomic nervous system of lower limb, including hip
+D36.14	Benign neoplasm of peripheral nerves and autonomic nervous system of thorax
+D36.15	Benign neoplasm of peripheral nerves and autonomic nervous system of abdomen
+D36.16	Benign neoplasm of peripheral nerves and autonomic nervous system of pelvis
+D37.01	Neoplasm of uncertain behavior of lip
+D39.8	Neoplasm of uncertain behavior of other specified female genital organs
+D40.8	Neoplasm of uncertain behavior of other specified male genital organs
+D47.01	Cutaneous mastocytosis
+D47.02	Systemic mastocytosis
+D48.0	Neoplasm of uncertain behavior of bone and articular cartilage
+D48.1	Neoplasm of uncertain behavior of connective and other soft tissue
+D48.5	Neoplasm of uncertain behavior of skin
+D49.2	Neoplasm of unspecified behavior of bone, soft tissue, and skin
+D69.2	Other nonthrombocytopenic purpura
+D84.9	Immunodeficiency, unspecified
+D86.3	Sarcoidosis of skin
+D89.811	Chronic graft-versus-host disease
+E03.8	Other specified hypothyroidism
+E11.9	Type 2 diabetes mellitus without complications
+E28.2	Polycystic ovarian syndrome
+E55.9	Vitamin D deficiency, unspecified
+E61.1	Iron deficiency
+E65	Localized adiposity
+E66.3	Overweight
+E66.9	Obesity, unspecified
+E70.321	Tyrosinase positive oculocutaneous albinism
+E78.00	Pure hypercholesterolemia, unspecified
+E78.2	Mixed hyperlipidemia
+E85.4	Organ-limited amyloidosis
+E85.9	Amyloidosis, unspecified
+E88.1	Lipodystrophy, not elsewhere classified
+F17.200	Nicotine dependence, unspecified, uncomplicated
+F32.9	Major depressive disorder, single episode, unspecified
+F43.0	Acute stress reaction
+F45.8	Other somatoform disorders
+F63.3	Trichotillomania
+F98.8	Other specified behavioral and emotional disorders with onset usually occurring in childhood and adolescence
+G89.18	Other acute postprocedural pain
+G90.09	Other idiopathic peripheral autonomic neuropathy
+H00.011	Hordeolum externum right upper eyelid
+H00.012	Hordeolum externum right lower eyelid
+H00.014	Hordeolum externum left upper eyelid
+H00.015	Hordeolum externum left lower eyelid
+H00.019	Hordeolum externum unspecified eye, unspecified eyelid
+H00.11	Chalazion right upper eyelid
+H00.12	Chalazion right lower eyelid
+H00.14	Chalazion left upper eyelid
+H00.19	Chalazion unspecified eye, unspecified eyelid
+H01.001	Unspecified blepharitis right upper eyelid
+H01.002	Unspecified blepharitis right lower eyelid
+H01.003	Unspecified blepharitis right eye, unspecified eyelid
+H01.004	Unspecified blepharitis left upper eyelid
+H01.005	Unspecified blepharitis left lower eyelid
+H01.006	Unspecified blepharitis left eye, unspecified eyelid
+H01.00A	Unspecified blepharitis right eye, upper and lower eyelids
+H01.00B	Unspecified blepharitis left eye, upper and lower eyelids
+H01.131	Eczematous dermatitis of right upper eyelid
+H01.132	Eczematous dermatitis of right lower eyelid
+H01.133	Eczematous dermatitis of right eye, unspecified eyelid
+H01.134	Eczematous dermatitis of left upper eyelid
+H01.135	Eczematous dermatitis of left lower eyelid
+H01.136	Eczematous dermatitis of left eye, unspecified eyelid
+H01.139	Eczematous dermatitis of unspecified eye, unspecified eyelid
+H02.401	Unspecified ptosis of right eyelid
+H02.402	Unspecified ptosis of left eyelid
+H02.403	Unspecified ptosis of bilateral eyelids
+H02.60	Xanthelasma of unspecified eye, unspecified eyelid
+H02.61	Xanthelasma of right upper eyelid
+H02.62	Xanthelasma of right lower eyelid
+H02.64	Xanthelasma of left upper eyelid
+H02.65	Xanthelasma of left lower eyelid
+H02.721	Madarosis of right upper eyelid and periocular area
+H02.724	Madarosis of left upper eyelid and periocular area
+H02.824	Cysts of left upper eyelid
+H02.842	Edema of right lower eyelid
+H02.845	Edema of left lower eyelid
+H02.849	Edema of unspecified eye, unspecified eyelid
+H04.552	Acquired stenosis of left nasolacrimal duct
+H10.33	Unspecified acute conjunctivitis, bilateral
+H10.45	Other chronic allergic conjunctivitis
+H53.451	Other localized visual field defect, right eye
+H53.452	Other localized visual field defect, left eye
+H53.453	Other localized visual field defect, bilateral
+H60.02	Abscess of left external ear
+H61.031	Chondritis of right external ear
+H61.032	Chondritis of left external ear
+H61.033	Chondritis of external ear, bilateral
+H61.039	Chondritis of external ear, unspecified ear
+I73.00	Raynaud's syndrome without gangrene
+I73.9	Peripheral vascular disease, unspecified
+I78.1	Nevus, non-neoplastic
+I78.8	Other diseases of capillaries
+I83.10	Varicose veins of unspecified lower extremity with inflammation
+I83.12	Varicose veins of left lower extremity with inflammation
+I83.899	Varicose veins of unspecified lower extremity with other complications
+I83.90	Asymptomatic varicose veins of unspecified lower extremity
+I83.91	Asymptomatic varicose veins of right lower extremity
+I83.92	Asymptomatic varicose veins of left lower extremity
+I83.93	Asymptomatic varicose veins of bilateral lower extremities
+I87.2	Venous insufficiency (chronic) (peripheral)
+I89.0	Lymphedema, not elsewhere classified
+I99.8	Other disorder of circulatory system
+J30.89	Other allergic rhinitis
+J44.9	Chronic obstructive pulmonary disease, unspecified
+K09.8	Other cysts of oral region, not elsewhere classified
+K11.8	Other diseases of salivary glands
+K12.0	Recurrent oral aphthae
+K13.0	Diseases of lips
+K13.29	Other disturbances of oral epithelium, including tongue
+K40.90	Unilateral inguinal hernia, without obstruction or gangrene, not specified as recurrent
+K59.00	Constipation, unspecified
+K60.0	Acute anal fissure
+K61.0	Anal abscess
+K64.4	Residual hemorrhoidal skin tags
+L01.01	Non-bullous impetigo
+L01.03	Bullous impetigo
+L02.01	Cutaneous abscess of face
+L02.02	Furuncle of face
+L02.03	Carbuncle of face
+L02.12	Furuncle of neck
+L02.211	Cutaneous abscess of abdominal wall
+L02.221	Furuncle of abdominal wall
+L02.222	Furuncle of back [any part, except buttock]
+L02.223	Furuncle of chest wall
+L02.224	Furuncle of groin
+L02.31	Cutaneous abscess of buttock
+L02.32	Furuncle of buttock
+L02.411	Cutaneous abscess of right axilla
+L02.412	Cutaneous abscess of left axilla
+L02.413	Cutaneous abscess of right upper limb
+L02.415	Cutaneous abscess of right lower limb
+L02.416	Cutaneous abscess of left lower limb
+L02.421	Furuncle of right axilla
+L02.422	Furuncle of left axilla
+L02.423	Furuncle of right upper limb
+L02.424	Furuncle of left upper limb
+L02.425	Furuncle of right lower limb
+L02.426	Furuncle of left lower limb
+L02.821	Furuncle of head [any part, except face]
+L02.828	Furuncle of other sites
+L02.831	Carbuncle of head [any part, except face]
+L02.91	Cutaneous abscess, unspecified
+L02.92	Furuncle, unspecified
+L03.011	Cellulitis of right finger
+L03.012	Cellulitis of left finger
+L03.019	Cellulitis of unspecified finger
+L03.031	Cellulitis of right toe
+L03.032	Cellulitis of left toe
+L03.311	Cellulitis of abdominal wall
+L05.01	Pilonidal cyst with abscess
+L05.91	Pilonidal cyst without abscess
+L08.89	Other specified local infections of the skin and subcutaneous tissue
+L08.9	Local infection of the skin and subcutaneous tissue, unspecified
+L10.0	Pemphigus vulgaris
+L10.2	Pemphigus foliaceous
+L11.1	Transient acantholytic dermatosis [Grover]
+L12.0	Bullous pemphigoid
+L20.84	Intrinsic (allergic) eczema
+L20.89	Other atopic dermatitis
+L21.0	Seborrhea capitis
+L21.8	Other seborrheic dermatitis
+L22	Diaper dermatitis
+L23.0	Allergic contact dermatitis due to metals
+L23.1	Allergic contact dermatitis due to adhesives
+L23.2	Allergic contact dermatitis due to cosmetics
+L23.3	Allergic contact dermatitis due to drugs in contact with skin
+L23.7	Allergic contact dermatitis due to plants, except food
+L23.81	Allergic contact dermatitis due to animal (cat) (dog) dander
+L23.89	Allergic contact dermatitis due to other agents
+L23.9	Allergic contact dermatitis, unspecified cause
+L24.3	Irritant contact dermatitis due to cosmetics
+L24.4	Irritant contact dermatitis due to drugs in contact with skin
+L24.9	Irritant contact dermatitis, unspecified cause
+L25.9	Unspecified contact dermatitis, unspecified cause
+L26	Exfoliative dermatitis
+L27.0	Generalized skin eruption due to drugs and medicaments taken internally
+L27.1	Localized skin eruption due to drugs and medicaments taken internally
+L28.0	Lichen simplex chronicus
+L28.1	Prurigo nodularis
+L29.0	Pruritus ani
+L29.1	Pruritus scroti
+L29.8	Other pruritus
+L29.9	Pruritus, unspecified
+L30.0	Nummular dermatitis
+L30.1	Dyshidrosis [pompholyx]
+L30.2	Cutaneous autosensitization
+L30.4	Erythema intertrigo
+L30.5	Pityriasis alba
+L30.8	Other specified dermatitis
+L30.9	Dermatitis, unspecified
+L40.0	Psoriasis vulgaris
+L40.3	Pustulosis palmaris et plantaris
+L40.4	Guttate psoriasis
+L40.8	Other psoriasis
+L41.0	Pityriasis lichenoides et varioliformis acuta
+L41.1	Pityriasis lichenoides chronica
+L41.3	Small plaque parapsoriasis
+L42	Pityriasis rosea
+L43.8	Other lichen planus
+L44.1	Lichen nitidus
+L44.8	Other specified papulosquamous disorders
+L50.1	Idiopathic urticaria
+L50.3	Dermatographic urticaria
+L50.5	Cholinergic urticaria
+L50.8	Other urticaria
+L51.0	Nonbullous erythema multiforme
+L52	Erythema nodosum
+L53.8	Other specified erythematous conditions
+L55.0	Sunburn of first degree
+L55.1	Sunburn of second degree
+L55.9	Sunburn, unspecified
+L56.2	Photocontact dermatitis [berloque dermatitis]
+L56.4	Polymorphous light eruption
+L56.5	Disseminated superficial actinic porokeratosis (DSAP)
+L56.8	Other specified acute skin changes due to ultraviolet radiation
+L57.0	Actinic keratosis
+L57.3	Poikiloderma of Civatte
+L57.8	Other skin changes due to chronic exposure to nonionizing radiation
+L58.9	Radiodermatitis, unspecified
+L59.0	Erythema ab igne [dermatitis ab igne]
+L60.0	Ingrowing nail
+L60.1	Onycholysis
+L60.3	Nail dystrophy
+L60.8	Other nail disorders
+L60.9	Nail disorder, unspecified
+L63.0	Alopecia (capitis) totalis
+L63.1	Alopecia universalis
+L63.2	Ophiasis
+L63.8	Other alopecia areata
+L64.8	Other androgenic alopecia
+L65.0	Telogen effluvium
+L65.8	Other specified nonscarring hair loss
+L65.9	Nonscarring hair loss, unspecified
+L66.0	Pseudopelade
+L66.1	Lichen planopilaris
+L66.2	Folliculitis decalvans
+L66.8	Other cicatricial alopecia
+L67.0	Trichorrhexis nodosa
+L67.1	Variations in hair color
+L67.8	Other hair color and hair shaft abnormalities
+L67.9	Hair color and hair shaft abnormality, unspecified
+L68.0	Hirsutism
+L68.9	Hypertrichosis, unspecified
+L70.0	Acne vulgaris
+L70.1	Acne conglobata
+L70.8	Other acne
+L71.0	Perioral dermatitis
+L71.1	Rhinophyma
+L71.8	Other rosacea
+L72.0	Epidermal cyst
+L72.11	Pilar cyst
+L72.2	Steatocystoma multiplex
+L72.3	Sebaceous cyst
+L72.8	Other follicular cysts of the skin and subcutaneous tissue
+L73.0	Acne keloid
+L73.1	Pseudofolliculitis barbae
+L73.2	Hidradenitis suppurativa
+L73.8	Other specified follicular disorders
+L74.0	Miliaria rubra
+L74.1	Miliaria crystallina
+L74.4	Anhidrosis
+L74.510	Primary focal hyperhidrosis, axilla
+L74.511	Primary focal hyperhidrosis, face
+L74.512	Primary focal hyperhidrosis, palms
+L74.513	Primary focal hyperhidrosis, soles
+L74.519	Primary focal hyperhidrosis, unspecified
+L75.0	Bromhidrosis
+L80	Vitiligo
+L81.0	Postinflammatory hyperpigmentation
+L81.1	Chloasma
+L81.2	Freckles
+L81.3	Café au lait spots
+L81.4	Other melanin hyperpigmentation
+L81.5	Leukoderma, not elsewhere classified
+L81.6	Other disorders of diminished melanin formation
+L81.7	Pigmented purpuric dermatosis
+L81.8	Other specified disorders of pigmentation
+L81.9	Disorder of pigmentation, unspecified
+L82.0	Inflamed seborrheic keratosis
+L82.1	Other seborrheic keratosis
+L83	Acanthosis nigricans
+L84	Corns and callosities
+L85.1	Acquired keratosis [keratoderma] palmaris et plantaris
+L85.3	Xerosis cutis
+L85.8	Other specified epidermal thickening
+L89.151	Pressure ulcer of sacral region, stage 1
+L89.816	Pressure-induced deep tissue damage of head
+L90.0	Lichen sclerosus et atrophicus
+L90.5	Scar conditions and fibrosis of skin
+L90.6	Striae atrophicae
+L90.8	Other atrophic disorders of skin
+L91.0	Hypertrophic scar
+L91.8	Other hypertrophic disorders of the skin
+L92.0	Granuloma annulare
+L92.1	Necrobiosis lipoidica, not elsewhere classified
+L92.3	Foreign body granuloma of the skin and subcutaneous tissue
+L93.0	Discoid lupus erythematosus
+L94.0	Localized scleroderma [morphea]
+L94.2	Calcinosis cutis
+L95.8	Other vasculitis limited to the skin
+L97.129	Non-pressure chronic ulcer of left thigh with unspecified severity
+L97.219	Non-pressure chronic ulcer of right calf with unspecified severity
+L97.519	Non-pressure chronic ulcer of other part of right foot with unspecified severity
+L97.909	Non-pressure chronic ulcer of unspecified part of unspecified lower leg with unspecified severity
+L98.0	Pyogenic granuloma
+L98.1	Factitial dermatitis
+L98.411	Non-pressure chronic ulcer of buttock limited to breakdown of skin
+L98.429	Non-pressure chronic ulcer of back with unspecified severity
+L98.491	Non-pressure chronic ulcer of skin of other sites limited to breakdown of skin
+L98.499	Non-pressure chronic ulcer of skin of other sites with unspecified severity
+L98.8	Other specified disorders of the skin and subcutaneous tissue
+L98.9	Disorder of the skin and subcutaneous tissue, unspecified
+M06.1	Adult-onset Still's disease
+M12.9	Arthropathy, unspecified
+M31.0	Hypersensitivity angiitis
+M32.9	Systemic lupus erythematosus, unspecified
+M33.12	Other dermatomyositis with myopathy
+M34.83	Systemic sclerosis with polyneuropathy
+M35.1	Other overlap syndromes
+M67.40	Ganglion, unspecified site
+M67.422	Ganglion, left elbow
+M67.431	Ganglion, right wrist
+M67.432	Ganglion, left wrist
+M67.441	Ganglion, right hand
+M67.442	Ganglion, left hand
+M67.472	Ganglion, left ankle and foot
+M70.22	Olecranon bursitis, left elbow
+M71.30	Other bursal cyst, unspecified site
+M71.341	Other bursal cyst, right hand
+M71.342	Other bursal cyst, left hand
+M71.371	Other bursal cyst, right ankle and foot
+M71.372	Other bursal cyst, left ankle and foot
+M71.38	Other bursal cyst, other site
+M72.0	Palmar fascial fibromatosis [Dupuytren]
+M79.10	Myalgia, unspecified site
+M79.3	Panniculitis, unspecified
+M79.609	Pain in unspecified limb
+M95.12	Cauliflower ear, left ear
+N41.0	Acute prostatitis
+N47.1	Phimosis
+N48.1	Balanitis
+N49.2	Inflammatory disorders of scrotum
+N61.1	Abscess of the breast and nipple
+N61.21	Granulomatous mastitis, right breast
+N62	Hypertrophy of breast
+Q17.0	Accessory auricle
+Q70.9	Syndactyly, unspecified
+Q80.0	Ichthyosis vulgaris
+Q80.8	Other congenital ichthyosis
+Q82.1	Xeroderma pigmentosum
+Q82.5	Congenital non-neoplastic nevus
+Q82.8	Other specified congenital malformations of skin
+Q83.3	Accessory nipple
+Q85.9	Phakomatosis, unspecified
+Q87.89	Other specified congenital malformation syndromes, not elsewhere classified
+R04.0	Epistaxis
+R20.2	Paresthesia of skin
+R20.8	Other disturbances of skin sensation
+R20.9	Unspecified disturbances of skin sensation
+R22.0	Localized swelling, mass and lump, head
+R22.1	Localized swelling, mass and lump, neck
+R22.2	Localized swelling, mass and lump, trunk
+R22.41	Localized swelling, mass and lump, right lower limb
+R22.9	Localized swelling, mass and lump, unspecified
+R23.3	Spontaneous ecchymoses
+R23.8	Other skin changes
+R51.9	Headache, unspecified
+R52	Pain, unspecified
+R55	Syncope and collapse
+R58	Hemorrhage, not elsewhere classified
+R59.0	Localized enlarged lymph nodes
+R60.0	Localized edema
+R63.5	Abnormal weight gain
+R68.3	Clubbing of fingers
+R79.89	Other specified abnormal findings of blood chemistry
+S00.00XA	Unspecified superficial injury of scalp
+S00.01XA	Abrasion of scalp
+S00.30XA	Unspecified superficial injury of nose
+S00.31XA	Abrasion of nose
+S00.412A	Abrasion of left ear
+S00.462A	Insect bite (nonvenomous) of left ear
+S00.80XA	Unspecified superficial injury of other part of head
+S00.81XA	Abrasion of other part of head
+S00.83XA	Contusion of other part of head
+S00.86XA	Insect bite (nonvenomous) of other part of head
+S01.412A	Laceration without foreign body of left cheek and temporomandibular area
+S10.80XA	Unspecified superficial injury of other specified part of neck
+S10.86XA	Insect bite of other specified part of neck
+S20.309A	Unspecified superficial injuries of unspecified front wall of thorax
+S20.369A	Insect bite (nonvenomous) of unspecified front wall of thorax
+S20.402A	Unspecified superficial injuries of left back wall of thorax
+S20.409A	Unspecified superficial injuries of unspecified back wall of thorax
+S20.411A	Abrasion of right back wall of thorax
+S20.419A	Abrasion of unspecified back wall of thorax
+S20.462A	Insect bite (nonvenomous) of left back wall of thorax
+S21.201A	Unspecified open wound of right back wall of thorax without penetration into thoracic cavity
+S30.1XXA	Contusion of abdominal wall
+S30.812A	Abrasion of penis
+S30.860A	Insect bite (nonvenomous) of lower back and pelvis
+S30.861A	Insect bite (nonvenomous) of abdominal wall
+S30.91XA	Unspecified superficial injury of lower back and pelvis
+S40.212A	Abrasion of left shoulder
+S40.862A	Insect bite (nonvenomous) of left upper arm
+S41.102A	Unspecified open wound of left upper arm
+S50.861A	Insect bite (nonvenomous) of right forearm
+S50.862A	Insect bite (nonvenomous) of left forearm
+S50.911A	Unspecified superficial injury of right forearm
+S50.912A	Unspecified superficial injury of left forearm
+S51.801A	Unspecified open wound of right forearm
+S51.811A	Laceration without foreign body of right forearm
+S60.00XA	Contusion of unspecified finger without damage to nail
+S60.011A	Contusion of right thumb without damage to nail
+S60.012A	Contusion of left thumb without damage to nail
+S60.021A	Contusion of right index finger without damage to nail
+S60.022A	Contusion of left index finger without damage to nail
+S60.031A	Contusion of right middle finger without damage to nail
+S60.222A	Contusion of left hand
+S60.420A	Blister (nonthermal) of right index finger
+S60.461A	Insect bite (nonvenomous) of left index finger
+S60.511A	Abrasion of right hand
+S60.512A	Abrasion of left hand
+S60.522A	Blister (nonthermal) of left hand
+S60.561A	Insect bite (nonvenomous) of right hand
+S60.562A	Insect bite (nonvenomous) of left hand
+S60.862A	Insect bite (nonvenomous) of left wrist
+S60.922A	Unspecified superficial injury of left hand
+S61.211A	Laceration without foreign body of left index finger without damage to nail
+S61.233A	Puncture wound without foreign body of left middle finger without damage to nail
+S61.411A	Laceration without foreign body of right hand
+S70.322A	Blister (nonthermal), left thigh
+S70.361A	Insect bite (nonvenomous), right thigh
+S70.362A	Insect bite (nonvenomous), left thigh
+S80.12XA	Contusion of left lower leg
+S80.212A	Abrasion, left knee
+S80.262A	Insect bite (nonvenomous), left knee
+S80.811A	Abrasion, right lower leg
+S80.812A	Abrasion, left lower leg
+S80.861A	Insect bite (nonvenomous), right lower leg
+S80.862A	Insect bite (nonvenomous), left lower leg
+S80.921A	Unspecified superficial injury of right lower leg
+S81.801A	Unspecified open wound, right lower leg
+S81.802A	Unspecified open wound, left lower leg
+S81.832A	Puncture wound without foreign body, left lower leg
+S90.111A	Contusion of right great toe without damage to nail
+S90.112A	Contusion of left great toe without damage to nail
+S90.121A	Contusion of right lesser toe(s) without damage to nail
+S90.122A	Contusion of left lesser toe(s) without damage to nail
+S90.129A	Contusion of unspecified lesser toe(s) without damage to nail
+S90.32XA	Contusion of left foot
+S90.422A	Blister (nonthermal), left great toe
+S90.425A	Blister (nonthermal), left lesser toe(s)
+S90.511A	Abrasion, right ankle
+S90.562A	Insect bite (nonvenomous), left ankle
+S90.821A	Blister (nonthermal), right foot
+S90.822A	Blister (nonthermal), left foot
+S90.861A	Insect bite (nonvenomous), right foot
+S90.862A	Insect bite (nonvenomous), left foot
+S91.002A	Unspecified open wound, left ankle
+S91.105A	Unspecified open wound of left lesser toe(s) without damage to nail
+T07.XXXA	Unspecified multiple injuries
+T14.8XXA	Other injury of unspecified body region
+T20.17XA	Burn of first degree of neck
+T20.27XA	Burn of second degree of neck
+T22.111A	Burn of first degree of right forearm
+T22.112A	Burn of first degree of left forearm
+T22.211A	Burn of second degree of right forearm
+T22.231A	Burn of second degree of right upper arm
+T22.232A	Burn of second degree of left upper arm
+T22.351A	Burn of third degree of right shoulder
+T23.202A	Burn of second degree of left hand, unspecified site
+T31.0	Burns involving less than 10% of body surface
+T37.8X5A	Adverse effect of other specified systemic anti-infectives and antiparasitics
+T45.1X5A	Adverse effect of antineoplastic and immunosuppressive drugs
+T49.0X5A	Adverse effect of local antifungal, anti-infective and anti-inflammatory drugs
+T49.8X5A	Adverse effect of other topical agents
+T50.905A	Adverse effect of unspecified drugs, medicaments and biological substances
+T63.441A	Toxic effect of venom of bees, accidental (unintentional)
+T69.1XXA	Chilblains
+T78.40XA	Allergy, unspecified
+T81.31XA	Disruption of external operation (surgical) wound, not elsewhere classified
+T81.40XA	Infection following a procedure, unspecified
+T81.590A	Other complications of foreign body accidentally left in body following surgical operation
+T81.89XA	Other complications of procedures, not elsewhere classified
+T88.7XXA	Unspecified adverse effect of drug or medicament
+U07.1	COVID-19
+U09.9	Post COVID-19 condition, unspecified
+W89.1XXA	Exposure to tanning bed
+X11.0XXA	Contact with hot water in bath or tub
+X17.XXXA	Contact with hot engines, machinery and tools
+X31.XXXA	Exposure to excessive natural cold
+X32.XXXA	Exposure to sunlight
+Z00.00	Encounter for general adult medical examination without abnormal findings
+Z08	Encounter for follow-up examination after completed treatment for malignant neoplasm
+Z09	Encounter for follow-up examination after completed treatment for conditions other than malignant neoplasm
+Z18.10	Retained metal fragments, unspecified
+Z18.39	Other retained organic fragments
+Z33.1	Pregnant state, incidental
+Z41.9	Encounter for procedure for purposes other than remedying health state, unspecified
+Z48.02	Encounter for removal of sutures
+Z48.817	Encounter for surgical aftercare following surgery on the skin and subcutaneous tissue
+Z71.1	Person with feared health complaint in whom no diagnosis is made
+Z71.3	Dietary counseling and surveillance
+Z71.89	Other specified counseling
+Z78.9	Other specified health status
+Z79.899	Other long term (current) drug therapy
+Z80.8	Family history of malignant neoplasm of other organs or systems
+Z85.820	Personal history of malignant melanoma of skin
+Z85.828	Personal history of other malignant neoplasm of skin
+Z86.006	Personal history of melanoma in-situ
+Z86.007	Personal history of in-situ neoplasm of skin
+Z86.14	Personal history of Methicillin resistant Staphylococcus aureus infection
+Z86.19	Personal history of other infectious and parasitic diseases
+Z87.2	Personal history of diseases of the skin and subcutaneous tissue
+Z87.891	Personal history of nicotine dependence

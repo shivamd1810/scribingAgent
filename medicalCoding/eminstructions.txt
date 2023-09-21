@@ -1,0 +1,67 @@
+E/M code: 99202(new patient), 99212 (Established Patient) -
+Level of MDM: Straightforward
+Number and Complexity of Problems Addressed: Minimal
+1 self-limited or minor problem
+Amount and/or Complexity of Data: Minimal or none
+Risk: Minimal risk of morbidity from additional diagnostic testing or treatment
+
+99203(new patient), 99213(established Patient) -
+Level of MDM: Low
+Number and Complexity of Problems Addressed: Low
+2 or more self-limited or minor problems
+1 stable chronic illness
+1 acute, uncomplicated illness or injury
+Amount and/or Complexity of Data: Limited
+Must meet at least 1 of 2 categories
+Category 1: Tests and documents (Any combination of 2)
+Review of prior external note(s) from each unique source
+Review of the result(s) of each unique test
+Ordering of each unique test
+Category 2: Assessment requiring an independent historian(s)
+Risk: Low risk of morbidity from additional diagnostic testing or treatment
+
+E/M Code: 99204(new patient), 99214(established Patient) -
+Level of MDM: Moderate
+Number and Complexity of Problems Addressed: Moderate
+1 or more chronic illnesses with exacerbation, progression, or side effects of treatment
+2 or more stable chronic illnesses
+1 undiagnosed new problem with uncertain prognosis
+1 acute illness with systemic symptoms
+1 acute, complicated injury
+Amount and/or Complexity of Data: Moderate
+Must meet at least 1 of 3 categories
+Category 1: Tests, documents, or independent historian(s) (Any combination of 3)
+Review of prior external note(s) from each unique source
+Review of the result(s) of each unique test
+Ordering of each unique test
+Assessment requiring an independent historian(s)
+Category 2: Independent interpretation of tests
+Category 3: Discussion of management or test interpretation
+Risk: Moderate risk of morbidity from additional diagnostic testing or treatment
+Examples:
+Prescription drug management
+Decision regarding minor surgery with identified patient or procedure risk factors
+Decision regarding elective major surgery without identified patient or procedure risk factors
+Diagnosis or treatment significantly limited by social determinants of health
+
+E/M Code: 99205(new patient), 99215(established Patient) -
+Level of MDM: High
+Number and Complexity of Problems Addressed: High
+1 or more chronic illnesses with severe exacerbation, progression, or side effects of treatment
+1 acute or chronic illness or injury that poses a threat to life or bodily function
+Amount and/or Complexity of Data: Extensive
+Must meet at least 2 of 3 categories
+Category 1: Tests, documents, or independent historian(s) (Any combination of 3)
+Review of prior external note(s) from each unique source
+Review of the result(s) of each unique test
+Ordering of each unique test
+Assessment requiring an independent historian(s)
+Category 2: Independent interpretation of tests
+Category 3: Discussion of management or test interpretation
+Risk: High risk of morbidity from additional diagnostic testing or treatment
+Examples:
+Drug therapy requiring intensive monitoring for toxicity
+Decision regarding elective major surgery with identified patient or procedure risk factors
+Decision regarding emergency major surgery
+Decision regarding hospitalization
+Decision not to resuscitate or to de-escalate care because of poor prognosis
