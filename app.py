@@ -51,57 +51,6 @@ def display_feedback(patient_id, feedback_type):
         else:
             st.error(f"Failed to update {feedback_type} feedback.")
 
-
-
-
-def display_codes_and_responses(code_output_json, medical_details):
-    # Parse the JSON string to Python dictionary
-    parsed_output = code_output_json
-
-    # Display EM Code
-    em_code = medical_details.get('EMCode', 'N/A')
-    st.subheader(f"EM Code: {em_code}")
-    st.json(code_output_json)
-    # used_keys = set()
-
-    # for icd_entry in parsed_output.get("medical_billing_codes", []):
-    #     icd_code_display_name = icd_entry.get("ICD_10_code_display_name", "N/A")
-    
-
-    #     # Fetch ICD code options
-    #     # icd_responses = getIcdCodes(icd_code_display_name)
-        
-    #     # Display the first ICD code option
-    #     first_icd_option = f"{icd_code_display_name} "
-        
-    #     # Create a checkbox for the ICD code, auto-selected
-    #     if first_icd_option not in used_keys:
-    #         icd_selected = st.checkbox(first_icd_option, key=first_icd_option, value=True)
-    #         used_keys.add(first_icd_option)
-            
-
-
-        # Start a bullet point list for the CPT codes
-        
-
-        # for cpt_entry in icd_entry.get("CPT_codes_display_name", []):
-        #     cpt_code_display_name = cpt_entry.get("CPT_code_display_name", "N/A")
-        #     if cpt_code_display_name == "N/A" or cpt_code_display_name == "Evaluation and Management":
-        #         continue
-
-        #     # Fetch CPT code options
-        #     cpt_responses = getCptCodes(cpt_code_display_name)
-            
-        #     first_cpt_option = f"{cpt_code_display_name} : {cpt_responses[0]['Description']} ({cpt_responses[0]['id']})" if cpt_responses else 'N/A'
-            
-        #     # Create a checkbox for the CPT code, auto-selected
-        #     if first_cpt_option not in used_keys:
-        #         cpt_selected = st.checkbox(f" {first_cpt_option}", key=first_cpt_option, value=True)
-        #         used_keys.add(first_cpt_option)
-                   
-            
-
-
 # This function will handle the user authentication
 def authenticate():
     if 'authenticated' not in st.session_state:
@@ -150,29 +99,6 @@ def sidebar_patient_selection():
     return next((patient['id'] for patient in patient_list if patient['patientName'] == new_selected_patient_name), None)
 
 
-def display_medical_details(medical_details, billing_codes):
-    display_codes_and_responses(billing_codes, medical_details)
-
-    # Display other details
-    st.title("Decision Report")
-
-    st.subheader("Reasoning:")
-    st.write(medical_details['Reasoning'])
-    
-    st.subheader("Criteria:")
-    for criterion in medical_details['Criteria']:
-        st.write(f"- {criterion}")
-
-    st.subheader("Medical Decision Making (MDM) Level:")
-    st.write(medical_details['MDMLevel'])
-    
-    st.subheader("Risk Level:")
-    st.write(medical_details['RiskLevel'])
-    
-    st.subheader("Data Complexity:")
-    st.write(medical_details['DataComplexity'])
-
-
 def display_transcription(details):
     st.title('Transcription')
     col1, col2, col3 = st.columns([1,1, 1])
@@ -218,6 +144,7 @@ def display_medical_codes(details, patient_id):
             st.info("It takes around 90 seconds to generate billing codes.")
             display_info(details["transcription"], patientType)
             # st.write("Generated notes:", new_patientMedicalCodes)  # Display the output
+    display_feedback(patient_id, "BillingCodes")
 
 
 def display_patient_instructions(details, patient_id):

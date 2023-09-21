@@ -7,9 +7,7 @@ from langchain.chains import LLMChain
 import os
 import streamlit as st
 import pandas as pd
-from collections import defaultdict
 import concurrent.futures
-
 
 from langchain.prompts import PromptTemplate
 from .prompt import cpt_instruction, cpt_json_schema, icd_instruction, icd_json_schema, em_code, em_instruction
@@ -76,79 +74,79 @@ import streamlit as st
 import pandas as pd
 
 
-# # Sample data
-data = [
-  {
-    "CPT_to_ICD_mapping": [
-      {
-        "CPT_code": "17110",
-        "CPT_code_display_name": "Destruct B9 Lesion 1-14",
-        "reason": "The patient has seborrheic keratosis which can be treated by destruction of benign lesions.",
-        "associated_ICD_10_codes": [
-          {
-            "ICD_10_code": "L82.1",
-            "ICD_10_code_display_name": "Other seborrheic keratosis"
-          }
-        ]
-      },
-      {
-        "CPT_code": "11900",
-        "CPT_code_display_name": "Inject Skin Lesions </W 7",
-        "reason": "The patient has seborrheic dermatitis and acne vulgaris which can be treated by injection of skin lesions.",
-        "associated_ICD_10_codes": [
-          {
-            "ICD_10_code": "L21.8",
-            "ICD_10_code_display_name": "Other seborrheic dermatitis"
-          },
-          {
-            "ICD_10_code": "L70.0",
-            "ICD_10_code_display_name": "Acne vulgaris"
-          }
-        ]
-      },
-      {
-        "CPT_code": "17260",
-        "CPT_code_display_name": "Destruction Of Skin Lesions",
-        "reason": "The patient has seborrheic keratosis which can be treated by destruction of skin lesions.",
-        "associated_ICD_10_codes": [
-          {
-            "ICD_10_code": "L82.1",
-            "ICD_10_code_display_name": "Other seborrheic keratosis"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "EM_code_data": {
-      "EM_code": "99204",
-      "EM_code_display_name": "New patient office or other outpatient visit, typically 45 minutes",
-      "reason": "The patient is a new patient with multiple issues including seborrheic dermatitis, seborrheic keratosis, nonscarring hair loss, and tinea pedis. The physician reviewed the patient's history, conducted a thorough examination, and provided a detailed treatment plan.",
-      "associated_ICD_10_codes": [
-        {
-          "ICD_10_code": "L21.8",
-          "ICD_10_code_display_name": "Other seborrheic dermatitis",
-          "ICD_10_code_reason": "The patient has dandruff on the forehead and hair, which is a form of seborrheic dermatitis."
-        },
-        {
-          "ICD_10_code": "L82.1",
-          "ICD_10_code_display_name": "Other seborrheic keratosis",
-          "ICD_10_code_reason": "The patient has seborrheic keratosis on the back and other parts of the body."
-        },
-        {
-          "ICD_10_code": "L65.8",
-          "ICD_10_code_display_name": "Other specified nonscarring hair loss",
-          "ICD_10_code_reason": "The patient is experiencing hair loss, which is a form of nonscarring hair loss."
-        },
-        {
-          "ICD_10_code": "B35.3",
-          "ICD_10_code_display_name": "Tinea pedis",
-          "ICD_10_code_reason": "The patient has a fungal infection between the toes, also known as tinea pedis or athlete's foot."
-        }
-      ]
-    }
-  }
-]
+# # # Sample data
+# data = [
+#   {
+#     "CPT_to_ICD_mapping": [
+#       {
+#         "CPT_code": "17110",
+#         "CPT_code_display_name": "Destruct B9 Lesion 1-14",
+#         "reason": "The patient has seborrheic keratosis which can be treated by destruction of benign lesions.",
+#         "associated_ICD_10_codes": [
+#           {
+#             "ICD_10_code": "L82.1",
+#             "ICD_10_code_display_name": "Other seborrheic keratosis"
+#           }
+#         ]
+#       },
+#       {
+#         "CPT_code": "11900",
+#         "CPT_code_display_name": "Inject Skin Lesions </W 7",
+#         "reason": "The patient has seborrheic dermatitis and acne vulgaris which can be treated by injection of skin lesions.",
+#         "associated_ICD_10_codes": [
+#           {
+#             "ICD_10_code": "L21.8",
+#             "ICD_10_code_display_name": "Other seborrheic dermatitis"
+#           },
+#           {
+#             "ICD_10_code": "L70.0",
+#             "ICD_10_code_display_name": "Acne vulgaris"
+#           }
+#         ]
+#       },
+#       {
+#         "CPT_code": "17260",
+#         "CPT_code_display_name": "Destruction Of Skin Lesions",
+#         "reason": "The patient has seborrheic keratosis which can be treated by destruction of skin lesions.",
+#         "associated_ICD_10_codes": [
+#           {
+#             "ICD_10_code": "L82.1",
+#             "ICD_10_code_display_name": "Other seborrheic keratosis"
+#           }
+#         ]
+#       }
+#     ]
+#   },
+#   {
+#     "EM_code_data": {
+#       "EM_code": "99204",
+#       "EM_code_display_name": "New patient office or other outpatient visit, typically 45 minutes",
+#       "reason": "The patient is a new patient with multiple issues including seborrheic dermatitis, seborrheic keratosis, nonscarring hair loss, and tinea pedis. The physician reviewed the patient's history, conducted a thorough examination, and provided a detailed treatment plan.",
+#       "associated_ICD_10_codes": [
+#         {
+#           "ICD_10_code": "L21.8",
+#           "ICD_10_code_display_name": "Other seborrheic dermatitis",
+#           "ICD_10_code_reason": "The patient has dandruff on the forehead and hair, which is a form of seborrheic dermatitis."
+#         },
+#         {
+#           "ICD_10_code": "L82.1",
+#           "ICD_10_code_display_name": "Other seborrheic keratosis",
+#           "ICD_10_code_reason": "The patient has seborrheic keratosis on the back and other parts of the body."
+#         },
+#         {
+#           "ICD_10_code": "L65.8",
+#           "ICD_10_code_display_name": "Other specified nonscarring hair loss",
+#           "ICD_10_code_reason": "The patient is experiencing hair loss, which is a form of nonscarring hair loss."
+#         },
+#         {
+#           "ICD_10_code": "B35.3",
+#           "ICD_10_code_display_name": "Tinea pedis",
+#           "ICD_10_code_reason": "The patient has a fungal infection between the toes, also known as tinea pedis or athlete's foot."
+#         }
+#       ]
+#     }
+#   }
+# ]
 
 def display_tables(transcription, patientType) :
     data = generate_notes(transcription, patientType)
@@ -180,6 +178,6 @@ def display_tables(transcription, patientType) :
     cpt_em_df = pd.DataFrame(cpt_em_list, columns=["Code", "Description", "Associated ICD Codes", "Reason"])
     st.write("## CPT code")
     st.table(cpt_em_df)
-
+    
 def display_info(transcription, patientType):
   display_tables(transcription, patientType)
