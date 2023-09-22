@@ -9,19 +9,24 @@ icd_json_schema = {
         "properties": {
           "ICD_10_code": {
             "type": "string",
-            "description": "ICD 10 codes, only from given list"
+            "description": "Specific ICD 10 code extracted from a predefined list for disease classification."
           },
           "ICD_10_code_display_name": {
             "type": "string",
-            "description": "ICD 10 code description/display name"
+            "description": "Descriptive name or phrase representing the associated ICD 10 code."
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason for selecting this ICD 10 code. Reference the transcription and quote relevant sections for justification."
           }
         },
-        "required": ["ICD_10_code", "ICD_10_code_display_name"]
+        "required": ["ICD_10_code", "ICD_10_code_display_name", "reason"]
       }
     }
   },
   "required": ["ICD_10_codes"]
 }
+
 
 cpt_json_schema = {
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -34,15 +39,15 @@ cpt_json_schema = {
         "properties": {
           "CPT_code": {
             "type": "string",
-            "description": "CPT code applicabale to service offered in this encounter, only from given list"
+            "description": "Specific CPT code identifying services offered during the encounter, selected from a predefined list."
           },
           "CPT_code_display_name": {
             "type": "string",
-            "description": "CPT code description/display name"
+            "description": "Descriptive name or phrase representing the associated CPT code."
           },
           "reason": {
             "type": "string",
-            "description": "What service offered in the encounter for this code to be applicable?"
+            "description": "Must add reference to the transcription and quote relevant sections of transcription. Please reference the transcription and include relevant quotations as evidence."
           },
           "associated_ICD_10_codes": {
             "type": "array",
@@ -51,22 +56,27 @@ cpt_json_schema = {
               "properties": {
                 "ICD_10_code": {
                   "type": "string",
-                  "description": "ICD 10 codes, only from given list"
+                  "description": "ICD 10 code from a predefined list linked with the given CPT code."
                 },
                 "ICD_10_code_display_name": {
                   "type": "string",
-                  "description": "ICD 10 code description/display name"
+                  "description": "Descriptive name or phrase for the associated ICD 10 code."
+                },
+                "ICD_10_code_reason": {
+                  "type": "string",
+                  "description": "Must reference to the transcription and quote relevant sections of transcription. Explanation detailing how the ICD 10 code influenced the CPT code choice."
                 }
               }
             }
           }
         },
-        "required": ["CPT_code", "CPT_code_display_name","reason", "associated_ICD_10_codes"]
+        "required": ["CPT_code", "CPT_code_display_name", "reason", "associated_ICD_10_codes"]
       }
     }
   },
   "required": ["CPT_to_ICD_mapping"]
 }
+
 
 em_code = {
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -78,15 +88,15 @@ em_code = {
         "EM_code": {
           "type": "string",
           "enum": ["99202", "99203", "99204", "99205", "99212", "99213", "99214", "99215"],
-          "description": "E/M code, either for new patients (99202-99205) or established patients (99212-99215)"
+          "description": "Specific E/M code which can be assigned to either new patients (codes 99202-99205) or established patients (codes 99212-99215)."
         },
         "EM_code_display_name": {
           "type": "string",
-          "description": "E/M code description/display name"
+          "description": "Descriptive name or phrase representing the chosen E/M code."
         },
         "reason": {
           "type": "string",
-          "description": "Why does this E/M code apply?"
+          "description": "Must reference to the transcription and quote relevant sections of transcription.Justification for the selection of this E/M code. Please reference the transcription and include relevant quotations as evidence."
         },
         "associated_ICD_10_codes": {
           "type": "array",
@@ -95,17 +105,18 @@ em_code = {
             "properties": {
               "ICD_10_code": {
                 "type": "string",
-                "description": "ICD 10 codes, only from a given list"
+                "description": "Specific ICD 10 code from a predefined list that influenced the E/M code choice."
               },
               "ICD_10_code_display_name": {
                 "type": "string",
-                "description": "ICD 10 code description/display name"
+                "description": "Descriptive name or phrase for the linked ICD 10 code."
               },
               "ICD_10_code_reason": {
                 "type": "string",
-                "description": "How does this ICD 10 code contributed to decision making of deciding E/M code"
+                "description": "Must reference to the transcription and quote relevant sections of transcription.Explanation detailing how the ICD 10 code played a role in the E/M code determination. Reference the transcription and quote relevant sections for justification."
               }
-            }
+            },
+            "required": ["ICD_10_code", "ICD_10_code_display_name", "ICD_10_code_reason"]
           }
         }
       },
@@ -117,38 +128,46 @@ em_code = {
 
 
 icd_instruction = """
-You are a helpful assistant which thinks step by step to find out icd codes applied to a outpatient encounter. You get encounter transcription as input.
-You only use icd codes from below list. Act as certified dermatology medical coding expert, think step wise step and output a detailed list of icd codes associated with this encounter.
-Before outputting the response, review and discard codes which doesn't exist in the given list. if no code matches, output empty strings.
-Include all revalent icd 10 codes for this encounter. Output in correct format.
-transcription is in following text delimited by triple backticks.
-transcription :```{transcription}```
-icd codes is in following text delimited by triple backticks.
-icd codes: ```{icdCodes}```
+Using dermatology clinic outpatient encounter transcription provided, assist in determining the appropriate ICD codes that apply to this outpatient encounter. Here are some guidelines:
+
+1. Act as a certified dermatology medical coding expert and think critically through each step.
+2. Use only the ICD codes from the given list.
+3. Review your selections carefully and discard any codes that aren't on the given list. If no matches are found, provide an empty response.
+4. Always ensure that the codes selected are relevant to the encounter and presented in the correct format.
+5. For clarity and justification, reference and quote specific portions of the transcription when providing reasoning for your selections.
+
+Input transcription: ```{transcription}```
+ICD codes to consider: ```{icdCodes}```
 """
 
 cpt_instruction = """
-You are a helpful assistant which thinks step wise step to find out cpt/procedural codes for service offered during a outpatient encounter. You will get patient encounter transcription as input.
-You only use cpt codes from below list. Act as certified dermatology medical coding expert, think step wise step and find out list of cpt code with their appropriate diagnosis codes(icd-10 codes) from below icd-10 list for the encounter. There can be zero, one or multiple cpt codes and for each cpt code, there can be multiple icd codes. 
-Before outputting the response, review and discard codes which doesn't exist in the given list or which service doesn't offered in the encounter. if no code matches, output empty strings.
-Output in correct format. Make sure to remove any uncessary procedural which haven't been performed in this encounter.
-transcription is in following text delimited by triple backticks.
-transcription :```{transcription}```
-cpt codes is in following text delimited by triple backticks.
-cpt codes: ```{cptCodes}```
-icd codes is in following text delimited by triple backticks.
-icd codes: ```{icdCodes}```
+Using dermatology clinic outpatient encounter transcription provided, help determine the CPT/procedural codes for services rendered during an outpatient encounter. Follow these guidelines:
+
+1. Act as a certified dermatology medical coding expert and think critically through each step.
+2. Only use CPT codes from the provided list. Must reference to the transcription and quote relevant sections of transcription in reason.
+3. For each CPT code, there may be associated ICD codes. Be sure to link them appropriately.  Must reference to the transcription and quote relevant sections of transcription in reason.. 
+4. Thoroughly review your selections, ensuring you discard any codes not on the given list or not relevant to the services described in the transcription. If no matches are found, provide an empty response.
+5. Always ensure the codes are provided in the correct format.
+6. For justification, reference and quote specific portions of the transcription when providing reasoning for your selections.
+
+Input transcription: ```{transcription}```
+CPT codes to consider: ```{cptCodes}```
+ICD codes to consider: ```{icdCodes}```
 """
 
 em_instruction = """
-You are a helpful assistant which thinks step wise step to find out eE/M codes applied to a outpatient encounter. You get encounter transcription as input.
-You use below E/M guidelines to find appropriate E/M for this encounter. Act as certified dermatology medical coding expert, think step wise step and find out E/M code for this encounter with appropriate diagnosis codes(icd-10 codes) from below icd-10 list for the encounter. 
-Before outputting the response, carefully review step by step. This is a {patientType} patient, keep in mind when choosing E/M code.
-Output in correct format.
-transcription is in following text delimited by triple backticks.
-transcription :```{transcription}```
-E/M guidelines is in following text delimited by triple backticks.
-E/M guidelines: ```{emGuidelines}```
-icd codes is in following text delimited by triple backticks.
-icd codes: ```{icdCodes}```
+Using dermatology clinic outpatient encounter transcription provided, assist in selecting the correct E/M code for this outpatient encounter, keeping the following in mind:
+
+1. Act as a certified dermatology medical coding expert and think critically through each step.
+2. Use the provided E/M guidelines to determine the most suitable E/M code.
+3. Keep the patient type (e.g., new or established) in mind when selecting an E/M code. Must reference to the transcription and quote relevant sections of transcription in reason.
+4. Link the appropriate ICD-10 diagnosis codes from the given list for the encounter.
+5. Review your selection carefully to ensure accuracy.
+6. Always ensure the code is presented in the correct format.
+7. For clarity and justification, reference and quote specific portions of the transcription when providing reasoning for your selections.
+
+This is a {patientType} patient.
+Input transcription: ```{transcription}```
+E/M guidelines to consider: ```{emGuidelines}```
+ICD codes to consider: ```{icdCodes}```
 """

@@ -58,7 +58,7 @@ def get_em_code_list(transcription, icd_code_list, eminstruction, patientType):
 @st.cache_data
 def generate_notes(transcription, patientType):
    icd_code_list = icd_llmchain.run({"transcription":transcription,  "icdCodes":icdcodes})
-  #  icd_code_list =  {'ICD_10_codes': [{'ICD_10_code': 'L21.0', 'ICD_10_code_display_name': 'Seborrhea capitis'}, {'ICD_10_code': 'L21.8', 'ICD_10_code_display_name': 'Other seborrheic dermatitis'}, {'ICD_10_code': 'L60.0', 'ICD_10_code_display_name': 'Ingrowing nail'}, {'ICD_10_code': 'L65.8', 'ICD_10_code_display_name': 'Other specified nonscarring hair loss'}, {'ICD_10_code': 'L70.0', 'ICD_10_code_display_name': 'Acne vulgaris'}, {'ICD_10_code': 'L82.1', 'ICD_10_code_display_name': 'Other seborrheic keratosis'}, {'ICD_10_code': 'L85.3', 'ICD_10_code_display_name': 'Xerosis cutis'}, {'ICD_10_code': 'B35.3', 'ICD_10_code_display_name': 'Tinea pedis'}]}
+  #  icd_code_list =  {'ICD_10_codes': [{'ICD_10_code': 'L21.0', 'ICD_10_code_display_name': 'Seborrhea capitis', 'reason': 'The patient was observed to have some flaking in the hair and on the forehead, which the doctor identified as dandruff. The doctor recommended using dandruff shampoo to manage the condition.'}, {'ICD_10_code': 'L60.3', 'ICD_10_code_display_name': 'Nail dystrophy', 'reason': 'The patient mentioned using a product to promote hair growth, which could potentially affect the nails as well. The doctor did not specify any nail abnormalities, but this code could be considered if further information confirms nail changes.'}, {'ICD_10_code': 'L65.9', 'ICD_10_code_display_name': 'Nonscarring hair loss, unspecified', 'reason': 'The patient was observed to be losing some hair. The doctor discussed a treatment option involving a foam that promotes hair growth.'}, {'ICD_10_code': 'L82.1', 'ICD_10_code_display_name': 'Other seborrheic keratosis', 'reason': 'The patient was observed to have some seborrheic keratosis. The doctor identified these as normal and did not recommend any treatment unless they become bothersome to the patient.'}, {'ICD_10_code': 'B35.3', 'ICD_10_code_display_name': 'Tinea pedis', 'reason': "The patient was observed to have a fungal infection between the toes, commonly known as athlete's foot. The doctor recommended using clotrimazole to treat the condition."}, {'ICD_10_code': 'L81.8', 'ICD_10_code_display_name': 'Other specified disorders of pigmentation', 'reason': 'The patient mentioned noticing more visible blood vessels on his skin. The doctor identified this as a normal part of aging and did not recommend any treatment unless it becomes a cosmetic concern.'}, {'ICD_10_code': 'D22.9', 'ICD_10_code_display_name': 'Melanocytic nevi, unspecified', 'reason': 'The patient was observed to have some moles, which the doctor identified as normal. The doctor used an instrument to examine the moles and confirmed that they were normal.'}]}
    with concurrent.futures.ThreadPoolExecutor() as executor:
         future_cpt = executor.submit(get_cpt_code_list, transcription, icd_code_list, cptcodes)
         future_em = executor.submit(get_em_code_list, transcription, icd_code_list, eminstruction, patientType)
@@ -148,33 +148,25 @@ import pandas as pd
 #   }
 # ]
 def display_tables(data):
-    icd_list = []
-    for item in data:
-        if "EM_code_data" in item:
-            for icd_code in item["EM_code_data"]["associated_ICD_10_codes"]:
-                icd_list.append([icd_code["ICD_10_code"], icd_code["ICD_10_code_display_name"]])
-        elif "CPT_to_ICD_mapping" in item:
-            for mapping in item["CPT_to_ICD_mapping"]:
-                for icd_code in mapping["associated_ICD_10_codes"]:
-                    icd_list.append([icd_code["ICD_10_code"], icd_code["ICD_10_code_display_name"]])
-    
-    icd_df = pd.DataFrame(icd_list, columns=["ICD_10_code", "ICD_10_code_display_name"]).drop_duplicates()
-    st.write("## icd codes")
-    st.table(icd_df)
-
     cpt_em_list = []
     for item in data:
         if "EM_code_data" in item:
-            icd_codes = ", ".join([icd["ICD_10_code"] for icd in item["EM_code_data"]["associated_ICD_10_codes"]])
-            cpt_em_list.append([item["EM_code_data"]["EM_code"], item["EM_code_data"]["EM_code_display_name"], icd_codes, item["EM_code_data"]["reason"]])
+            icd_codes = "<br><br>".join([icd["ICD_10_code"] for icd in item["EM_code_data"]["associated_ICD_10_codes"]])
+            icd_reasons = "<br><br>".join([icd["ICD_10_code_reason"] for icd in item["EM_code_data"]["associated_ICD_10_codes"]]) 
+            cpt_em_list.append([item["EM_code_data"]["EM_code"], item["EM_code_data"]["EM_code_display_name"], icd_codes, item["EM_code_data"]["reason"], icd_reasons])
         elif "CPT_to_ICD_mapping" in item:
             for mapping in item["CPT_to_ICD_mapping"]:
-                icd_codes = ", ".join([icd["ICD_10_code"] for icd in mapping["associated_ICD_10_codes"]])
-                cpt_em_list.append([mapping["CPT_code"], mapping["CPT_code_display_name"], icd_codes, mapping["reason"]])
+                cpt_reason = mapping["reason"]
+                for icd in mapping["associated_ICD_10_codes"]:
+                    cpt_em_list.append([mapping["CPT_code"], mapping["CPT_code_display_name"], icd["ICD_10_code"], cpt_reason, icd["ICD_10_code_reason"]])
+                    # Reset the CPT reason for subsequent ICD codes (to avoid repetition)
+                    cpt_reason = ""
 
-    cpt_em_df = pd.DataFrame(cpt_em_list, columns=["Code", "Description", "Associated ICD Codes", "Reason"])
-    st.write("## CPT code")
-    st.table(cpt_em_df)
+    cpt_em_df = pd.DataFrame(cpt_em_list, columns=["Code", "Description", "Associated ICD Code", "CPT Reason", "ICD Reason"])
+    
+    # Convert DataFrame to HTML and display using st.write()
+    st.write(cpt_em_df.to_html(escape=False, index=False), unsafe_allow_html=True)
+
 
 def display_info(transcription, patient_id):
   data = get_billing_code(patient_id)
