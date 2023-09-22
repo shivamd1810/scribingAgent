@@ -48,6 +48,7 @@ def display_feedback(patient_id, feedback_type):
     if st.button(f"Submit Feedback"):
         if update_feedback(patient_id, new_feedback, feedback_type):
             st.success(f"{feedback_type} feedback updated successfully.")
+            existing_feedback = new_feedback
         else:
             st.error(f"Failed to update {feedback_type} feedback.")
 
@@ -137,13 +138,8 @@ def display_medical_codes(details, patient_id):
             st.session_state.progress = 3
             st.experimental_rerun() 
     
-    patientType = st.radio("Select Patient Type:", ["First Visit", "Established Patient"])
 
-    if st.button('Generate Notes'):
-            # Assuming `transcription` is available or passed as an argument
-            st.info("It takes around 90 seconds to generate billing codes.")
-            display_info(details["transcription"], patientType)
-            # st.write("Generated notes:", new_patientMedicalCodes)  # Display the output
+    display_info(details["transcription"], patient_id)        
     display_feedback(patient_id, "BillingCodes")
 
 

@@ -134,3 +134,32 @@ def update_feedback(patient_id, new_feedback, feedback_type):
     except Exception as e:
         print(f"An error occurred: {e}")
         return False
+
+def update_billing_code(patient_id, billing_code):
+    # Document reference for the specific patient visit
+    patient_visit_ref = db.collection('patientVisits').document(patient_id)
+
+    try:
+        key = "billingCodes"  # E.g., 'MedicalCodesFeedback'
+        # Update the document with new feedback
+        patient_visit_ref.update({
+            key: billing_code
+        })
+        return True
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False
+
+def get_billing_code(patient_id):
+    # Document reference for the specific patient visit
+    patient_visit_ref = db.collection('patientVisits').document(patient_id)
+
+    # Fetch the existing document
+    patient_visit_doc = patient_visit_ref.get()
+
+    if patient_visit_doc.exists:
+        patient_data = patient_visit_doc.to_dict()
+        key = "billingCodes"  # E.g., 'MedicalCodesFeedback'
+        return patient_data.get(key, '')
+    else:
+        return ''

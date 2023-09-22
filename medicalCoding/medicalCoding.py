@@ -8,7 +8,7 @@ import os
 import streamlit as st
 import pandas as pd
 import concurrent.futures
-
+from firebaseFunctions import get_billing_code, update_billing_code
 from langchain.prompts import PromptTemplate
 from .prompt import cpt_instruction, cpt_json_schema, icd_instruction, icd_json_schema, em_code, em_instruction
 from langchain.chains.openai_functions import (
@@ -147,9 +147,7 @@ import pandas as pd
 #     }
 #   }
 # ]
-
-def display_tables(transcription, patientType) :
-    data = generate_notes(transcription, patientType)
+def display_tables(data):
     icd_list = []
     for item in data:
         if "EM_code_data" in item:
@@ -159,11 +157,11 @@ def display_tables(transcription, patientType) :
             for mapping in item["CPT_to_ICD_mapping"]:
                 for icd_code in mapping["associated_ICD_10_codes"]:
                     icd_list.append([icd_code["ICD_10_code"], icd_code["ICD_10_code_display_name"]])
+    
     icd_df = pd.DataFrame(icd_list, columns=["ICD_10_code", "ICD_10_code_display_name"]).drop_duplicates()
     st.write("## icd codes")
     st.table(icd_df)
 
-    # Table 2: Each CPT or EM code has a correspondent list of ICD codes
     cpt_em_list = []
     for item in data:
         if "EM_code_data" in item:
@@ -174,10 +172,20 @@ def display_tables(transcription, patientType) :
                 icd_codes = ", ".join([icd["ICD_10_code"] for icd in mapping["associated_ICD_10_codes"]])
                 cpt_em_list.append([mapping["CPT_code"], mapping["CPT_code_display_name"], icd_codes, mapping["reason"]])
 
-        
     cpt_em_df = pd.DataFrame(cpt_em_list, columns=["Code", "Description", "Associated ICD Codes", "Reason"])
     st.write("## CPT code")
     st.table(cpt_em_df)
-    
-def display_info(transcription, patientType):
-  display_tables(transcription, patientType)
+
+def display_info(transcription, patient_id):
+  data = get_billing_code(patient_id)
+  if data == '':
+      patientType = st.radio("Select Patient Type:", ["First Visit", "Established Patient"])
+      if st.button('Generate Notes'):
+            # Assuming `transcription` is available or passed as an argument
+            st.info("It takes around 90 seconds to generate billing codes.")
+            # st.write("Generated notes:", new_patientMedicalCodes)  # Display the output
+            data = generate_notes(transcription, patientType)
+            display_tables(data)
+            update_billing_code(patient_id, data) 
+  else :
+      display_tables(data)
