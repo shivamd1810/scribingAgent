@@ -160,7 +160,7 @@ def display_tables(data):
     selected_multiple_icd_codes = st.multiselect("Select Multiple ICD 10 Codes", icd_combined_list)
 
     # Button to add to table
-    if st.button("Add to Table"):
+    if st.button("Add"):
         cpt_code, cpt_display_name = new_cpt_code.split(' - ', 1)
         # Splitting the combined list for ICD codes and descriptions
         selected_icd_codes = [code_combined.split(' - ', 1)[0] for code_combined in selected_multiple_icd_codes]
