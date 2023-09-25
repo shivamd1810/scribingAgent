@@ -170,11 +170,11 @@ def display_tables(data):
             "CPT_to_ICD_mapping": [{
                 "CPT_code": cpt_code,
                 "CPT_code_display_name": cpt_display_name,
-                "reason": "Your reason here",
+                "reason": "Manually added",
                 "associated_ICD_10_codes": [
                     {
                         "ICD_10_code": icd_code,
-                        "ICD_10_code_reason": icd_display_name
+                        "ICD_10_code_reason": "Manually added:" + icd_display_name
                     } for icd_code, icd_display_name in zip(selected_icd_codes, selected_icd_display_names)
                 ]
             }]
