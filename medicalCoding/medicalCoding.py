@@ -27,9 +27,11 @@ icd_prompt = PromptTemplate(input_variables=["transcription", "icdCodes"], templ
 cpt_prompt = PromptTemplate(input_variables=["transcription", "icdCodes", "cptCodes"], template= cpt_instruction)
 em_prompt = PromptTemplate(input_variables=["transcription", "icdCodes", "emGuidelines", "patientType"], template= em_instruction)
 
-def read_text_file(file_path):
-    with open(file_path, 'r') as file:
-        return file.read()
+def read_text_file(filepath):
+    with open(filepath, 'r') as f:
+        lines = [line.strip().split('\t') for line in f.readlines()]
+    return lines
+    
 import os
 print(os.getcwd())
 eminstruction = read_text_file('./medicalCoding/eminstructions.txt')
@@ -148,26 +150,77 @@ import pandas as pd
 #   }
 # ]
 def display_tables(data):
+    icd_combined_list = [f"{code[0]} - {code[1]}" for code in icdcodes[1:]]
+    cpt_combined_list = [""] + [f"{code[0]} - {code[1]}" for code in cptcodes[1:]]
+
+    
+    new_cpt_code = st.selectbox("Select CPT code", cpt_combined_list, index=0)
+
+    # Multi select option for ICD code
+    selected_multiple_icd_codes = st.multiselect("Select Multiple ICD 10 Codes", icd_combined_list)
+
+    # Button to add to table
+    if st.button("Add to Table"):
+        cpt_code, cpt_display_name = new_cpt_code.split(' - ', 1)
+        # Splitting the combined list for ICD codes and descriptions
+        selected_icd_codes = [code_combined.split(' - ', 1)[0] for code_combined in selected_multiple_icd_codes]
+        selected_icd_display_names = [code_combined.split(' - ', 1)[1] for code_combined in selected_multiple_icd_codes]
+
+        new_mapping = {
+            "CPT_to_ICD_mapping": [{
+                "CPT_code": cpt_code,
+                "CPT_code_display_name": cpt_display_name,
+                "reason": "Your reason here",
+                "associated_ICD_10_codes": [
+                    {
+                        "ICD_10_code": icd_code,
+                        "ICD_10_code_reason": icd_display_name
+                    } for icd_code, icd_display_name in zip(selected_icd_codes, selected_icd_display_names)
+                ]
+            }]
+        }
+        data.append(new_mapping)
+
     cpt_em_list = []
+    
     for item in data:
         if "EM_code_data" in item:
-            icd_codes = "<br><br>".join([icd["ICD_10_code"] for icd in item["EM_code_data"]["associated_ICD_10_codes"]])
-            icd_reasons = "<br><br>".join([icd["ICD_10_code_reason"] for icd in item["EM_code_data"]["associated_ICD_10_codes"]]) 
-            cpt_em_list.append([item["EM_code_data"]["EM_code"], item["EM_code_data"]["EM_code_display_name"], icd_codes, item["EM_code_data"]["reason"], icd_reasons])
+            icd_codes = [icd["ICD_10_code"] for icd in item["EM_code_data"]["associated_ICD_10_codes"]]
+            icd_reasons =  "   |    ".join([icd["ICD_10_code_reason"] for icd in item["EM_code_data"]["associated_ICD_10_codes"]])
+
+            
+            cpt_em_list.append([True, item["EM_code_data"]["EM_code"], icd_codes, item["EM_code_data"]["EM_code_display_name"], item["EM_code_data"]["reason"], icd_reasons])
+        
         elif "CPT_to_ICD_mapping" in item:
             for mapping in item["CPT_to_ICD_mapping"]:
                 cpt_reason = mapping["reason"]
+                
+                icd_codes = []
+                icd_reasons = ""
+                
                 for icd in mapping["associated_ICD_10_codes"]:
-                    cpt_em_list.append([mapping["CPT_code"], mapping["CPT_code_display_name"], icd["ICD_10_code"], cpt_reason, icd["ICD_10_code_reason"]])
-                    # Reset the CPT reason for subsequent ICD codes (to avoid repetition)
-                    cpt_reason = ""
+                    icd_codes.append(icd["ICD_10_code"])
+                    icd_reasons = icd_reasons + "   |    " + icd["ICD_10_code_reason"] if icd_reasons else icd["ICD_10_code_reason"]
+                
+                cpt_em_list.append([True, mapping["CPT_code"], icd_codes, mapping["CPT_code_display_name"], cpt_reason, icd_reasons])
+                
+                # Reset the CPT reason for subsequent ICD codes (to avoid repetition)
+                cpt_reason = ""
+    cpt_em_df = pd.DataFrame(cpt_em_list, columns=["Selected", "Code", "Associated ICD Code", "Description", "CPT Reason", "ICD Reason"])
 
-    cpt_em_df = pd.DataFrame(cpt_em_list, columns=["Code", "Description", "Associated ICD Code", "CPT Reason", "ICD Reason"])
     
     # Convert DataFrame to HTML and display using st.write()
-    st.write(cpt_em_df.to_html(escape=False, index=False), unsafe_allow_html=True)
+    edited_cpt_em_df = st.data_editor(cpt_em_df, hide_index=True)
 
+    # Filter the rows where "Selected" is False
+    deselected_rows = edited_cpt_em_df[~edited_cpt_em_df["Selected"]]
 
+    # Now remove these deselected rows from your original data
+    for index, row in deselected_rows.iterrows():
+        code = row["Code"]
+        data = [item for item in data if not (item.get("EM_code_data", {}).get("EM_code") == code or any(mapping.get("CPT_code") == code for mapping in item.get("CPT_to_ICD_mapping", [])))]
+
+    return data
 def display_info(transcription, patient_id):
   data = get_billing_code(patient_id)
   if data == '':
@@ -177,7 +230,8 @@ def display_info(transcription, patient_id):
             st.info("It takes around 90 seconds to generate billing codes.")
             # st.write("Generated notes:", new_patientMedicalCodes)  # Display the output
             data = generate_notes(transcription, patientType)
-            display_tables(data)
+            data = display_tables(data)
             update_billing_code(patient_id, data) 
   else :
-      display_tables(data)
+      data = display_tables(data)
+      update_billing_code(patient_id, data)
