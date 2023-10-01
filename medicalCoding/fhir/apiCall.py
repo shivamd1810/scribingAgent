@@ -3,8 +3,6 @@ import requests
 import json
 import logging
 import datetime
-from io import BytesIO
-from PyPDF2 import PdfFileReader
 from datetime import datetime, time
 # from weasyprint import HTML
 
