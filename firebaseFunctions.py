@@ -50,6 +50,30 @@ def checkAuthentication(email, code):
         st.error(f'An error occurred: {e}')
         return False
 
+def getChildUsers(email):
+    child_users_emails = [email]  # Initialize with the parent user's email
+
+    try:
+        # Get the user by email
+        user = auth.get_user_by_email(email)
+        user_id = user.uid
+
+        # Fetch child users from Firestore subcollection
+        child_users_ref = db.collection('users').document(user_id).collection('childUsers')
+        child_users_docs = child_users_ref.stream()
+
+        # Append child users' email to the list
+        for doc in child_users_docs:
+            child_users_emails.append(doc.to_dict().get('email', ''))
+
+    except auth.UserNotFoundError:
+        st.error('Email does not exist.')
+    except Exception as e:
+        st.error(f'An error occurred: {e}')
+
+    return child_users_emails
+
+
 def GetListOfTranscription(email, date):
     # Get the user by email
     user = auth.get_user_by_email(email)

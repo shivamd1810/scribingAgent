@@ -3,16 +3,15 @@ import streamlit as st
 
 from langchain.chat_models import ChatOpenAI
 from azureCognitiveSearch import getIcdCodes, getCptCodes
-import openai
-import os
 import pandas as pd
-
+from datetime import datetime, timedelta
 from langchain.chains.openai_functions import (
     create_structured_output_chain
 )
 import streamlit as st
-from firebaseFunctions import checkAuthentication, GetListOfTranscription, GetDetailsById, get_feedback, update_feedback
+from firebaseFunctions import checkAuthentication, GetListOfTranscription, GetDetailsById, get_feedback, update_feedback, getChildUsers
 from medicalCoding.medicalCoding import generate_notes, display_info
+from medicalCoding.fhir.apiCall import FHIRApi
 from tools import CPTCodeTool, ICD10CodeTool
 
 
@@ -20,6 +19,7 @@ from tools import CPTCodeTool, ICD10CodeTool
 tools = [
     ICD10CodeTool(), CPTCodeTool()
 ]
+fhir_api = FHIRApi()
 
 llm = ChatOpenAI(temperature=0, engine="GPT4", openai_api_key=st.secrets["AZURE_OPENAI_API_KEY"])
 
@@ -35,6 +35,14 @@ from prompt import notes_instruction, code_json_schema, code_instruction
 
 prompt = PromptTemplate(input_variables=["transcription"], template= notes_instruction)
 code_prompt = PromptTemplate(input_variables=["transcription"], template= code_instruction)
+
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
 def display_feedback(patient_id, feedback_type):
 
@@ -67,10 +75,11 @@ def authenticate():
             st.session_state.authenticated = checkAuthentication(email, code)
             if st.session_state.authenticated:
                 st.session_state.email = email
+                st.session_state.parentEmail = email
                 st.success("Authenticated, please select date and patient from sidebar")
                 st.experimental_rerun() 
             else:
-                st.warning("Not Authenticated")
+                st.error("Email and code doesn't match, Not Authenticated")
     else:
         st.success("Already authenticated, please select date and patient from sidebar")
 
@@ -100,18 +109,28 @@ def sidebar_patient_selection():
     return next((patient['id'] for patient in patient_list if patient['patientName'] == new_selected_patient_name), None)
 
 
+def display_email_selectbox_in_sidebar():
+    # Fetch the email IDs using the previous function
+    email = st.session_state.parentEmail
+    email_ids = getChildUsers(email)
+    
+    # Display selectbox in the Streamlit sidebar
+    selected_email = st.sidebar.selectbox("Choose an email ID:", email_ids)
+    
+    # Update session state with the selected email
+    st.session_state.email = selected_email
+
 def display_transcription(details):
-    st.title('Transcription')
     col1, col2, col3 = st.columns([1,1, 1])
     with col3:
         if st.button('Next to Patient Note'):
             st.session_state.progress = 1
-            st.experimental_rerun() 
+            st.experimental_rerun()
+    st.title('Transcription') 
     st.write(details['transcription'])
     
 
 def display_patient_note(details, patient_id):
-    st.title('Patient Note')
     col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
         if st.button('Back to Transcription'):
@@ -121,12 +140,12 @@ def display_patient_note(details, patient_id):
         if st.button('Next to Medical Codes'):
             st.session_state.progress = 2
             st.experimental_rerun() 
+    st.title('Patient Note')
     st.write(details['patientNote'])
     display_feedback(patient_id, "PatientNotes")
     
 
 def display_medical_codes(details, patient_id):
-    st.title('Medical Codes')
     col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
         if st.button('Back to Patient Note'):
@@ -138,13 +157,13 @@ def display_medical_codes(details, patient_id):
             st.session_state.progress = 3
             st.experimental_rerun() 
     
-
+    st.title('Billing Codes')
     display_info(details["transcription"], patient_id)        
     display_feedback(patient_id, "BillingCodes")
 
 
 def display_patient_instructions(details, patient_id):
-    st.title('Patient Instructions')
+    
     col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
         if st.button('Back to Medical Codes'):
@@ -152,9 +171,40 @@ def display_patient_instructions(details, patient_id):
             st.experimental_rerun() 
     with col3:
         if st.button('Submit to EHR'):
-            st.success('Error: EHR not connected')
-    st.write(details['patientInstructions'])
+            st.session_state.progress = 4
+            st.experimental_rerun()
+    st.title('Patient Instructions')
+    st.write(details['patientInstructions']['patient_instructions'])
     display_feedback(patient_id, "PatientInstructions")
+
+def display_submit_ehr(details, patient_id) :
+    
+    col1, col2, col3 = st.columns([1, 1, 1])
+    with col1:
+        if st.button('Back to instructions'):
+            st.session_state.progress = 3
+            st.experimental_rerun() 
+    st.title("Send to EHR") 
+    today_date = datetime.today().date()
+    tomorrow_date = today_date + timedelta(days=1)
+
+    cols = st.columns(3)
+    status = cols[0].selectbox("Patient appointment Status:", ["arrived", "pending", "booked", "checked-in", "fulfilled", "noshow", "cancelled"], index=0)
+    start_date_obj = cols[1].date_input("Start Date:", value=today_date)
+    end_date_obj = cols[2].date_input("End Date:", value=tomorrow_date)
+
+    # Fetch list of patients based on the above filters
+    patient_ids = fhir_api.get_patient_ids(practitioner_id="1027882", start_date=str(start_date_obj), end_date=str(end_date_obj), status=status)  # Replace 'YOUR_PRACTITIONER_ID' with actual ID
+    patient_names = [fhir_api.get_patient_name_by_id(patient_id) for patient_id in patient_ids]
+
+    selected_patient_name = st.selectbox("Select Patient:", patient_names)
+    
+    if st.button("Submit"):
+        # Add logic here to submit selected patient details to the EHR
+        st.error("Production username and password missing")
+
+         
+
 
 def display_details(details, patient_id):
     if st.session_state.progress == 0:
@@ -165,6 +215,8 @@ def display_details(details, patient_id):
         display_medical_codes(details, patient_id)
     elif st.session_state.progress == 3:
         display_patient_instructions(details, patient_id)
+    elif st.session_state.progress == 4:
+        display_submit_ehr(details, patient_id)    
 
 def transcription_page():
     if 'authenticated' not in st.session_state:
@@ -174,6 +226,7 @@ def transcription_page():
         authenticate()
         return
 
+    display_email_selectbox_in_sidebar()
     selected_patient_id = sidebar_patient_selection()
 
     if selected_patient_id:
