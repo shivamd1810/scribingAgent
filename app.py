@@ -9,7 +9,7 @@ from langchain.chains.openai_functions import (
     create_structured_output_chain
 )
 import streamlit as st
-from firebaseFunctions import checkAuthentication, GetListOfTranscription, GetDetailsById, get_feedback, update_feedback, getChildUsers
+from firebaseFunctions import checkAuthentication, GetListOfTranscription, GetDetailsById, get_feedback, update_feedback, getChildUsers, send_login_code_and_store, update_EHR_for_user, getCode
 from medicalCoding.medicalCoding import generate_notes, display_info
 from medicalCoding.fhir.apiCall import FHIRApi
 from tools import CPTCodeTool, ICD10CodeTool
@@ -48,9 +48,11 @@ def display_feedback(patient_id, feedback_type):
 
     # Get existing feedback
     existing_feedback = get_feedback(patient_id, feedback_type)
+    st.text("")
+    st.text("")
 
     # Create text input field for feedback
-    new_feedback = st.text_area(f"{feedback_type} Feedback", existing_feedback)
+    new_feedback = st.text_input(f"{feedback_type} Feedback : Let us know if you have any feedback for us/AI model", existing_feedback)
 
     # Create a button to update feedback
     if st.button(f"Submit Feedback"):
@@ -60,14 +62,13 @@ def display_feedback(patient_id, feedback_type):
         else:
             st.error(f"Failed to update {feedback_type} feedback.")
 
-# This function will handle the user authentication
 def authenticate():
     if 'authenticated' not in st.session_state:
         st.session_state.authenticated = False
 
     # Only show email and code input fields if the user is not authenticated
     if not st.session_state.authenticated:
-        st.title("No Pajamas movement")
+        st.title("Medscribe AI: No Pajamas movement")
         email = st.text_input("Enter Email:")
         code = st.text_input("Enter Code:", type="password")
 
@@ -80,9 +81,15 @@ def authenticate():
                 st.experimental_rerun() 
             else:
                 st.error("Email and code doesn't match, Not Authenticated")
+        
+        if st.button("First Time Here? Get Your Access Code"):
+            if email:  # Check that the email is not empty
+                send_login_code_and_store(email)  # Function to send the code via email
+                st.success("A code has been sent to your email. Please use it to authenticate.")
+            else:
+                st.error("Please enter an email address.")
     else:
         st.success("Already authenticated, please select date and patient from sidebar")
-
 
 
 # This function will handle the patient selection
@@ -137,7 +144,7 @@ def display_patient_note(details, patient_id):
             st.session_state.progress = 0
             st.experimental_rerun() 
     with col3:
-        if st.button('Next to Medical Codes'):
+        if st.button('Next to Patient Instructions'):
             st.session_state.progress = 2
             st.experimental_rerun() 
     st.title('Patient Note')
@@ -148,13 +155,13 @@ def display_patient_note(details, patient_id):
 def display_medical_codes(details, patient_id):
     col1, col2, col3 = st.columns([1, 1, 1])
     with col1:
-        if st.button('Back to Patient Note'):
-            st.session_state.progress = 1
+        if st.button('Back to Patient Instructions'):
+            st.session_state.progress = 2
             st.experimental_rerun() 
         
     with col3:
-        if st.button('Next to Patient Instructions'):
-            st.session_state.progress = 3
+        if st.button('EHR submission'):
+            st.session_state.progress = 4
             st.experimental_rerun() 
     
     st.title('Billing Codes')
@@ -165,17 +172,26 @@ def display_medical_codes(details, patient_id):
 def display_patient_instructions(details, patient_id):
     
     col1, col2, col3 = st.columns([1, 1, 1])
+
     with col1:
-        if st.button('Back to Medical Codes'):
-            st.session_state.progress = 2
+        if st.button('Back to Patient Notes'):
+            st.session_state.progress = 1
             st.experimental_rerun() 
+
     with col3:
-        if st.button('Submit to EHR'):
-            st.session_state.progress = 4
+        if st.button('Next to Medical Codes'):
+            st.session_state.progress = 3
             st.experimental_rerun()
+
     st.title('Patient Instructions')
-    st.write(details['patientInstructions']['patient_instructions'])
-    display_feedback(patient_id, "PatientInstructions")
+
+    # Check if 'patientInstructions' and 'patient_instructions' are in details.
+    if 'patientInstructions' in details and 'patient_instructions' in details['patientInstructions']:
+        st.write(details['patientInstructions']['patient_instructions'])
+        display_feedback(patient_id, "PatientInstructions")
+    else:
+        st.warning('Patient instructions are not available.')
+
 
 def display_submit_ehr(details, patient_id) :
     
@@ -184,27 +200,25 @@ def display_submit_ehr(details, patient_id) :
         if st.button('Back to instructions'):
             st.session_state.progress = 3
             st.experimental_rerun() 
-    st.title("Send to EHR") 
-    today_date = datetime.today().date()
-    tomorrow_date = today_date + timedelta(days=1)
+    # selected_patient_name = st.selectbox("Select Patient:", patient_names)
+    st.write("")
+    ehr_option = st.selectbox("Tell us which EHR do you use, our team will reach out to you for further details:", ["", "Cerner", "Epic", "Allscripts", "NextGen", "AthenaHealth", "Modmed", "Other"])
 
-    cols = st.columns(3)
-    status = cols[0].selectbox("Patient appointment Status:", ["arrived", "pending", "booked", "checked-in", "fulfilled", "noshow", "cancelled"], index=0)
-    start_date_obj = cols[1].date_input("Start Date:", value=today_date)
-    end_date_obj = cols[2].date_input("End Date:", value=tomorrow_date)
+    # Providing an input box for users to type in their EHR name if "Other" is selected
+    other_ehr_name = ""
+    if ehr_option == "Other":
+        other_ehr_name = st.text_input("Please specify the EHR name:")
 
-    # Fetch list of patients based on the above filters
-    patient_ids = fhir_api.get_patient_ids(practitioner_id="1027882", start_date=str(start_date_obj), end_date=str(end_date_obj), status=status)  # Replace 'YOUR_PRACTITIONER_ID' with actual ID
-    patient_names = [fhir_api.get_patient_name_by_id(patient_id) for patient_id in patient_ids]
-
-    selected_patient_name = st.selectbox("Select Patient:", patient_names)
-    
     if st.button("Submit"):
-        # Add logic here to submit selected patient details to the EHR
-        st.error("Production username and password missing")
-
-         
-
+    # Logic to handle the interaction with EHR can be added here
+    # Depending on the EHR selection, you might have different integration/logic to add
+    
+    # Showing a message to all users upon submission
+        if ehr_option == "Other" and other_ehr_name:
+            st.success(f"Thank you for specifying your EHR: {other_ehr_name}. Our team will reach out to you for further help with integration.")
+        else:
+            st.success("Our team will reach out to you for further help with EHR integration.")
+        update_EHR_for_user(st.session_state.parentEmail, ehr_option)
 
 def display_details(details, patient_id):
     if st.session_state.progress == 0:
@@ -212,9 +226,9 @@ def display_details(details, patient_id):
     elif st.session_state.progress == 1:
         display_patient_note(details, patient_id)
     elif st.session_state.progress == 2:
-        display_medical_codes(details, patient_id)
-    elif st.session_state.progress == 3:
         display_patient_instructions(details, patient_id)
+    elif st.session_state.progress == 3:
+        display_medical_codes(details, patient_id)
     elif st.session_state.progress == 4:
         display_submit_ehr(details, patient_id)    
 
@@ -232,6 +246,23 @@ def transcription_page():
     if selected_patient_id:
         details = GetDetailsById(selected_patient_id)
         display_details(details, selected_patient_id)
+    else:
+        user_email = st.session_state.email  # Replace with actual user email retrieval
+        login_code = getCode(user_email)
+
+        st.subheader("Let's Get Started with Your Transcription!")
+        st.markdown(f"""
+        It seems like there's no patient data available for transcription at the moment. 🕵️‍♂️
+
+        To get started with live transcription during your sessions, download and utilize the **MedScribe AI** app as a listening device. Once the session concludes, the transcribed notes will magically appear here! 📝✨
+
+        [📲 Download MedScribe AI](https://apps.apple.com/us/app/medscribe-ai/id6448894208)
+
+        ** Use the following code to log in: {login_code} **
+
+        Simply use the app during your patient sessions, and once you end the session in the app, you'll be able to view and manage your patient notes here. Let’s streamline your documentation process together! 🚀🤝
+        """)
+
 
 # Initialize session state
 if 'progress' not in st.session_state:

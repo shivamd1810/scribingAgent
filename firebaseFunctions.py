@@ -2,6 +2,7 @@ import firebase_admin
 from firebase_admin import credentials, auth, firestore
 import streamlit as st
 from datetime import datetime, timezone
+import random
 
 cred_dict = {
     "type": st.secrets["type"],
@@ -50,6 +51,27 @@ def checkAuthentication(email, code):
         st.error(f'An error occurred: {e}')
         return False
 
+def getCode(email):
+    try:
+        # Get the user by email
+        user = auth.get_user_by_email(email)
+
+        user_id = user.uid
+
+        # Fetch code from Firestore
+        user_doc_ref = db.collection('users').document(user_id)
+        user_doc = user_doc_ref.get()
+        stored_code = user_doc.to_dict().get('code', '')
+        return stored_code
+    except auth.UserNotFoundError:
+        st.error('Email does not exist.')
+        return False
+    except Exception as e:
+        st.error(f'An error occurred: {e}')
+        return False
+
+    
+
 def getChildUsers(email):
     child_users_emails = [email]  # Initialize with the parent user's email
 
@@ -73,6 +95,21 @@ def getChildUsers(email):
 
     return child_users_emails
 
+def update_EHR_for_user(email, ehrType):
+    user = auth.get_user_by_email(email)
+    user_id = user.uid
+
+    ehr_type_ref = db.collection('users').document(user_id)
+
+    try:
+        key = "ehrType"
+        ehr_type_ref.update({
+            key: ehrType
+        })
+        return True
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return False
 
 def GetListOfTranscription(email, date):
     # Get the user by email
@@ -187,3 +224,145 @@ def get_billing_code(patient_id):
         return patient_data.get(key, '')
     else:
         return ''
+
+def send_email_via_firestore(recipient_email, code):
+    try:
+        firebase_admin.get_app()
+    except ValueError:
+        cred = credentials.Certificate(cred_dict)
+        firebase_admin.initialize_app(cred)
+    
+    db = firestore.client()
+    MAIL_COLLECTION = 'mail'
+    subject = f"Your MedScribe AI Login Code: {code}"
+
+    message_text = f"""
+    Hello,
+
+    Thank you for using MedScribe AI!
+
+    Your login code is: {code}
+
+    Please enter this code into the application to proceed with the login.
+    If you did not request this code, please ignore this email.
+
+    Best,
+    The MedScribe AI Team
+    """
+
+    message_html = f"""
+    <p>Hello,</p>
+
+    <p>Thank you for using <strong>MedScribe AI</strong>!</p>
+
+    <p>Your login code is: <strong>{code}</strong></p>
+
+    <p>Please enter this code into the application to proceed with the login. Please use this code everytime you login.</p>
+
+    <p>If you did not request this code, please ignore this email.</p>
+
+    <p>Best,<br/>
+    The MedScribe AI Team</p>
+    """
+
+    # Construct the email message to be sent
+    email_message = {
+        'to': [recipient_email],
+        'message': {
+            'subject': subject,
+            'text': message_text,
+            'html': message_html,
+        }
+    }
+
+    try:
+        # Add the email message to Firestore, triggering the Firebase extension to send the email
+        db.collection(MAIL_COLLECTION).add(email_message)
+        print("Email queued for delivery!")
+    except Exception as e:
+        print(f"Failed to queue email: {e}")
+
+
+def send_login_code_and_store(email):
+    user = None
+    code = None
+    
+    # Check if user exists
+    try:
+        user = auth.get_user_by_email(email)
+        # Get existing code from Firestore
+        user_doc = db.collection('users').document(user.uid).get()
+        if user_doc.exists:
+            code = user_doc.to_dict().get('code', None)
+        else:
+            # If user exists in auth but not in Firestore, create a document
+            db.collection('users').document(user.uid).set({
+                'email': email,
+                # Add other initial user data here if needed
+            })
+    except auth.UserNotFoundError:
+        # User not found, create new user in Firebase Auth
+        user = auth.create_user(
+            email=email,
+            email_verified=True,
+        )
+        # Generate a new random code
+        code = str(random.randint(1000, 9999))
+        # Create user document in Firestore
+        db.collection('users').document(user.uid).set({
+            'email': email,
+            'code': code,
+            # Add other initial user data here if needed
+        })
+
+    # Send code via email
+    send_email_via_firestore(email, code)
+
+    # Only update the Firestore document with the code if it's newly generated
+    if user and not code:
+        try:
+            db.collection('users').document(user.uid).update({
+                'code': code
+            })
+        except Exception as e:
+            st.error(f"Failed to store code in Firestore: {e}")
+
+def store_uploaded_codes(email, file_content, file_codes_type):
+    # Get user by email
+    user = auth.get_user_by_email(email)
+    user_id = user.uid
+    
+    # User document reference
+    user_doc_ref = db.collection('users').document(user_id)
+    
+    try:
+        # Update the user document with the uploaded content in 'cpt_codes'
+        user_doc_ref.update({
+            file_codes_type: file_content,
+            'last_uploaded_at': firestore.SERVER_TIMESTAMP  # Server timestamp
+        })
+        st.success(file_codes_type + " uploaded successfully!")
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+
+def retrieve_cpt_codes(email, file_codes_type):
+    try:
+        # Get user by email
+        user = auth.get_user_by_email(email)
+        user_id = user.uid
+        
+        # User document reference
+        user_doc_ref = db.collection('users').document(user_id)
+        user_doc = user_doc_ref.get()
+        
+        if user_doc.exists:
+            # Retrieve 'cpt_codes' from user document
+            cpt_codes = user_doc.to_dict().get(file_codes_type, '')
+            return cpt_codes
+        else:
+            return None
+    except auth.UserNotFoundError:
+        return None
+    except Exception as e:
+        return None
+

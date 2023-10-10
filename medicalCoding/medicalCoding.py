@@ -5,7 +5,7 @@ import os
 import streamlit as st
 import pandas as pd
 import concurrent.futures
-from firebaseFunctions import get_billing_code, update_billing_code
+from firebaseFunctions import get_billing_code, update_billing_code, store_uploaded_codes
 from langchain.prompts import PromptTemplate
 from .prompt import cpt_instruction, cpt_json_schema, icd_instruction, icd_json_schema, em_code, em_instruction
 from langchain.chains.openai_functions import (
@@ -218,17 +218,34 @@ def display_tables(data):
         data = [item for item in data if not (item.get("EM_code_data", {}).get("EM_code") == code or any(mapping.get("CPT_code") == code for mapping in item.get("CPT_to_ICD_mapping", [])))]
 
     return data
-def display_info(transcription, patient_id):
-  data = get_billing_code(patient_id)
-  if data == '':
-      patientType = st.radio("Select Patient Type:", ["First Visit", "Established Patient"])
-      if st.button('Generate Notes'):
-            # Assuming `transcription` is available or passed as an argument
+
+def display_info( transcription, patient_id):
+    data = get_billing_code(patient_id)
+    
+    if "@dermatologyarts.com" not in st.session_state.email:
+        st.markdown('''
+            <div style="border:2px solid #f63366; padding:20px; border-radius:10px;">
+                <p>
+                It appears you are a new customer. To ensure seamless integration 
+                with our model, we need your practice's CPT and ICD10 codes from the last year. 
+                <strong>Please send these files directly to 
+                <a href="mailto:shivam@themedscribe.ai">shivam@themedscribe.ai</a></strong>.
+                </p>
+                <p>
+                Once we receive your data, it will take approximately <strong>1 day</strong> 
+                to configure our model. Should you have any questions or require 
+                expedited service, feel free to reach out through the same email.
+                </p>
+                <p>Thank you for choosing us!</p>
+            </div>
+        ''', unsafe_allow_html=True)
+    elif data == '':
+        patientType = st.radio("Select Patient Type:", ["First Visit", "Established Patient"])
+        if st.button('Generate Notes'):
             st.info("It takes around 90 seconds to generate billing codes.")
-            # st.write("Generated notes:", new_patientMedicalCodes)  # Display the output
             data = generate_notes(transcription, patientType)
             data = display_tables(data)
             update_billing_code(patient_id, data) 
-  else :
-      data = display_tables(data)
-      update_billing_code(patient_id, data)
+    else:
+        data = display_tables(data)
+        update_billing_code(patient_id, data)
